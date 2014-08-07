@@ -513,11 +513,12 @@ function debugger_onBreakpoint()
 
 			GoingPV_state = 2;
 
-			print('Changing to ' .. room_id)
+			
+			print('Changing to ' .. dest_room_ID)
 
-			memrec1=addresslist_getMemoryRecordByDescription(addresslist, 'roomID') 
-			memoryrecord_setValue(memrec1, room_id) 
-			curr_room_ID = room_id;
+			memrec1=addresslist_getMemoryRecordByDescription(addresslist, 'goingToRoom') 
+			memoryrecord_setValue(memrec1, dest_room_ID) 
+			curr_room_ID = dest_room_ID;
 
 			bNoHit = false; -- continue execution
 			
@@ -635,34 +636,26 @@ function rooms_list_OnDClick(sender)
 	
 	-- to do Age
 	
-	memrec1=addresslist_getMemoryRecordByDescription(addresslist, 'changingRoom') 
+	memrec1=addresslist_getMemoryRecordByDescription(addresslist, 'goingToRoom') 
 	bpAddress=memoryrecord_getAddress(memrec1) 
 	memrec1=addresslist_getMemoryRecordByDescription(addresslist, 'roomID') 
 	curr_room_ID = memoryrecord_getValue(memrec1);
-	print('curr_room_ID ' .. curr_room_ID)
+	
+	dest_room_ID = stringlist_getString(listbox_getItems(MyForm_rooms_list), SelectedItemIndex)	
+	print('curr_room_ID ' .. curr_room_ID .. " going to " .. dest_room_ID )
 	
 	if not bpSet then 
 		
 		bpSet = true;
 		
 		print('Breaking on write to ' .. bpAddress)
-		debug_setBreakpoint(bpAddress, 1, bptWrite)
+		debug_setBreakpoint(bpAddress, 1, bptAccess)
 		print('Ready to switch Room')
 	end
 	
 end
 
 function users_list_OnClick(sender)
-	local SelectedItemIndex = listbox_getItemIndex(MyForm_users_list) 
-	if SelectedItemIndex==-1 then return end 
-
-	local user_id = stringlist_getString(listbox_getItems(MyForm_users_list), SelectedItemIndex);
-	print( ip_user[SelectedItemIndex] )
-	print(user_id)
-	writeToClipboard(user_id);
-end
-
-function users_list_OnDClick(sender)
 	local SelectedItemIndex = listbox_getItemIndex(MyForm_users_list) 
 	if SelectedItemIndex==-1 then return end 
 
@@ -709,7 +702,7 @@ function GetUsers_OnClick(sender)
 			local gender_address = tonumber(stringlist_getString(results,ii), 16);
 			-- parse fields
 
-			local StartAddress = string.format("%08X",gender_address-250)--my start pointer 
+			local StartAddress = string.format("%08X",gender_address-170)--my start pointer 
 			local EndAddress = string.format("%08X",gender_address-1)--my start pointer 
 			local MyMemscan = createMemScan() 
 			memscan_returnOnlyOneResult(MyMemscan, true) 
@@ -718,11 +711,7 @@ function GetUsers_OnClick(sender)
 			memscan_waitTillDone(MyMemscan);
 			local cam_index = memscan_getOnlyResult(MyMemscan) 
 
-			if( cam_index == nil ) then
-			
-				print("Cam not found on " .. string.format('%08X',gender_address))
-			
-			else
+			if( cam_index ~= nil ) then
 			
 				local cam_length = readBytes( string.format('%08X',cam_index+12), 1);
 				
@@ -914,7 +903,7 @@ function GetSWF_versions_OnClick(sender)
 	
 	results=AOBScan("2E 73 77 66");
 	if (results==nil) then 
-		print("No Versions found.")
+		print("No users found.")
 		listbox_clear(MyForm_users_list)
 		return 
 	end
@@ -1112,6 +1101,7 @@ IP_key = "79566214843925";
 memrec1=addresslist_getMemoryRecordByDescription(addresslist, 'roomID') 
 room_id = memoryrecord_getValue(memrec1);
 curr_room_ID = room_id;
+dest_room_ID = nil;
 
 setProperty(MyForm_Name_edit, 'Text', old_Name);
 setProperty(MyForm_Country_edit, 'Text', old_Country);
