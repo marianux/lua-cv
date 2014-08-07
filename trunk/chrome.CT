@@ -1,0 +1,1266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="18">
+  <Forms>
+    <MyForm Class="TCEForm" Encoding="Ascii85">b)PCb,dveCeMw?,P6(]+kjf%bD_J@TR4iDM00jZXY65I3Aty{92+)q}6Cho6S+e0^S+cIZcc=1$4cfj*RjE=9ov{SLwo@,8?Qly+_L3CPuco5)oUNwO;uhczJSy!@+]LB5ct!NLYH1t5vmw!2s?[9m^jX9yhNonx_5EKX!lwXt$/zZzwI6ihYtTc.JBGf_amNHAzZAnN9S.JZ2$UT=bCT)x0J8UuxiRVvFaUmsUIT0#!2tF;P+yDJZVv^ejjpXp0B}@P)WlU*R@:YQD9oc*k1hUDtQ]VI)WR!=]xB4AF7UvBl#K)QdKjD:i.^K^pIHa}M(FCB;#6IF?X,kJ^R5V_rYI=67?/,Zn7+WDoZX3;X}UE.:_uwm;m[xa@]a[DnR.nY2tmI243HP;=Tis@DeU48g(Pr[D$_HY7$WS/a_kyh#c1XxOWf?PZ!S=HukS?Ysd2$-m@jyaAoPldEXsCVOgr5^9;QjlnMjp0@?nO2s;aZUgobuA(}#No+}p]vF3L{CawA:oFd_iy?MN_qdQ!^Y@j$i,4u,R.6K.h4//S0eEca5#Ric/i7$g,y3DT?,AyGB,xjO:}UbmTg.h82BSU[G6jP/hw=0p*hf8y1u3z_+=?=drcO=-l/5[ppVe(fK$0%+iR87SLSo2QVJ!+l]tFH5]_65nv5W74t;UH:RiH4zgX$U,tiJ#bA+1:d]tVX]9ROMK:MkEFyL56LQ(B){oKA/=%P@mmT#N%UeeEQ;dy1d83U3.pCMTI*XYrz5)aaU{I2Gl@{kBnMxFh%u}5N?fIUOKd9E8G@w%U4u5OVA}n6$4Kv.(_3*g%vcWyy=GYX:wslXj{i1qAah/w.Ib*}6BAb2apd{]q-TqNwKPj8YCBHetXh-:^6Q^lo-dx3pd}[bhSgwi?Mdef;0bZlU*7HaUHH3T;R:EAMlFuv2QqOh;b1SP]h?;TDLXckD[2$jD[2j%%{Uyl/h_zFN@7n8bfpClyt/(jF0Lk@nOc2xMIO-(NedHi,QXbpyDe8A,q67L%-nr=,CAPnxr^Gn+I$Kxg8u.</MyForm>
+  </Forms>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>112</ID>
+      <Description>"userIPdecrypted"</Description>
+      <LastState Activated="0" RealAddress="00000000"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>String</VariableType>
+      <Length>40</Length>
+      <Unicode>0</Unicode>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>8</Offset>
+        <Offset>208</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>98</ID>
+      <Description>"timeOut"</Description>
+      <LastState Value="0" Activated="0" RealAddress="0786317C"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>17C</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>125</ID>
+      <Description>"theWho"</Description>
+      <LastState Activated="0" RealAddress="0C37C3E0"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>String</VariableType>
+      <Length>32</Length>
+      <Unicode>0</Unicode>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>8</Offset>
+        <Offset>220</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>127</ID>
+      <Description>"tempPW_pt"</Description>
+      <LastState Activated="0" RealAddress="07863224"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>String</VariableType>
+      <Length>32</Length>
+      <Unicode>0</Unicode>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>224</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>88</ID>
+      <Description>"tempPW"</Description>
+      <LastState Activated="0" RealAddress="0C1EE9C0"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>String</VariableType>
+      <Length>32</Length>
+      <Unicode>0</Unicode>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>8</Offset>
+        <Offset>224</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>73</ID>
+      <Description>"stealth"</Description>
+      <LastState Value="0" Activated="0" RealAddress="07863084"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>84</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>122</ID>
+      <Description>"sendMsgTimeOut"</Description>
+      <LastState Value="0" Activated="0" RealAddress="0786311C"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>11C</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>94</ID>
+      <Description>"roomID_pt"</Description>
+      <LastState Value="08C54418" Activated="0" RealAddress="078632FC"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>2FC</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>123</ID>
+      <Description>"roomID"</Description>
+      <LastState Activated="0" RealAddress="09D90280"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>String</VariableType>
+      <Length>40</Length>
+      <Unicode>0</Unicode>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>8</Offset>
+        <Offset>2FC</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>111</ID>
+      <Description>"rijndael_key5"</Description>
+      <LastState Activated="0" RealAddress="0457FEDD"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>String</VariableType>
+      <Length>14</Length>
+      <Unicode>0</Unicode>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>8</Offset>
+        <Offset>204</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>99</ID>
+      <Description>"rijndael_key"</Description>
+      <LastState Activated="0" RealAddress="0457FF58"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>String</VariableType>
+      <Length>11</Length>
+      <Unicode>0</Unicode>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>8</Offset>
+        <Offset>270</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>95</ID>
+      <Description>"rejected"</Description>
+      <LastState Value="0" Activated="0" RealAddress="07863088"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>88</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>113</ID>
+      <Description>"myIPencrypted"</Description>
+      <LastState Activated="0" RealAddress="00000000"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>String</VariableType>
+      <Length>32</Length>
+      <Unicode>0</Unicode>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>"pepflashplayer.dll"+002A6AD0</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>8</Offset>
+        <Offset>C</Offset>
+        <Offset>180</Offset>
+        <Offset>9C</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>110</ID>
+      <Description>"minutesToGo"</Description>
+      <LastState Activated="0" RealAddress="0C37C3E0"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>String</VariableType>
+      <Length>32</Length>
+      <Unicode>0</Unicode>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>8</Offset>
+        <Offset>220</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>82</ID>
+      <Description>"lastbool"</Description>
+      <LastState Value="59" Activated="0" RealAddress="078630D8"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>D8</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>105</ID>
+      <Description>"isVIP"</Description>
+      <LastState Value="0" Activated="0" RealAddress="07863080"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>80</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>106</ID>
+      <Description>"isMyRoom"</Description>
+      <LastState Value="163422112" Activated="0" RealAddress="078630BC"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>BC</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>119</ID>
+      <Description>"goingToRoom"</Description>
+      <LastState Activated="0" RealAddress="0AF6D878"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>String</VariableType>
+      <Length>40</Length>
+      <Unicode>0</Unicode>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>8</Offset>
+        <Offset>22C</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>120</ID>
+      <Description>"fms_country_pt"</Description>
+      <LastState Value="0AA0FD18" Activated="0" RealAddress="078632A4"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>2A4</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>97</ID>
+      <Description>"fms_country"</Description>
+      <LastState Activated="0" RealAddress="09E8AAE0"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>String</VariableType>
+      <Length>80</Length>
+      <Unicode>0</Unicode>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>8</Offset>
+        <Offset>2A4</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>96</ID>
+      <Description>"firstOwnerAuth"</Description>
+      <LastState Value="1610612991" Activated="0" RealAddress="078630B4"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>B4</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>77</ID>
+      <Description>"firstAdminAuth"</Description>
+      <LastState Value="1736326888" Activated="0" RealAddress="078630B0"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>B0</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>124</ID>
+      <Description>"currentRoomID_pt"</Description>
+      <LastState Value="09E77A30" Activated="0" RealAddress="07863308"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>308</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>92</ID>
+      <Description>"currentRoomID"</Description>
+      <LastState Activated="0" RealAddress="09D903E0"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>String</VariableType>
+      <Length>40</Length>
+      <Unicode>0</Unicode>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>8</Offset>
+        <Offset>308</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>93</ID>
+      <Description>"currentRoomID"</Description>
+      <LastState Activated="0" RealAddress="00000138"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>String</VariableType>
+      <Length>40</Length>
+      <Unicode>0</Unicode>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>8</Offset>
+        <Offset>288</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>89</ID>
+      <Description>"curSelectionUser"</Description>
+      <LastState Activated="0" RealAddress="088B00B0"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>String</VariableType>
+      <Length>40</Length>
+      <Unicode>0</Unicode>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>8</Offset>
+        <Offset>190</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>74</ID>
+      <Description>"countryConn"</Description>
+      <LastState Value="0" Activated="0" RealAddress="0786308C"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>8C</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>76</ID>
+      <Description>"changingRoom"</Description>
+      <LastState Value="0" Activated="0" RealAddress="07863184"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>184</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>121</ID>
+      <Description>"camTimeUp"</Description>
+      <LastState Value="0" Activated="0" RealAddress="07863124"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>124</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>118</ID>
+      <Description>"TxtRestr"</Description>
+      <LastState Activated="0" RealAddress="00000000"/>
+      <Color>80000008</Color>
+      <VariableType>String</VariableType>
+      <Length>32</Length>
+      <Unicode>0</Unicode>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>"THREADSTACK0"-00000E6C</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>EC</Offset>
+        <Offset>9C</Offset>
+        <Offset>634</Offset>
+        <Offset>148</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>72</ID>
+      <Description>"PVrestr"</Description>
+      <LastState Value="0" Activated="0" RealAddress="07863070"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>70</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>90</ID>
+      <Description>"OtherIP"</Description>
+      <LastState Activated="0" RealAddress="00000000"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>String</VariableType>
+      <Length>40</Length>
+      <Unicode>0</Unicode>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>8</Offset>
+        <Offset>158</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>126</ID>
+      <Description>"MyName"</Description>
+      <LastState Activated="0" RealAddress="0C5DB968"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>String</VariableType>
+      <Length>20</Length>
+      <Unicode>0</Unicode>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>8</Offset>
+        <Offset>2C0</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Toggle Activation</Action>
+          <Keys/>
+          <ID>0</ID>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>103</ID>
+      <Description>"MyIP_pt"</Description>
+      <LastState Value="0698D1D8" Activated="0" RealAddress="078632C8"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>2C8</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>85</ID>
+      <Description>"MyIP"</Description>
+      <LastState Activated="0" RealAddress="0680D150"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>String</VariableType>
+      <Length>20</Length>
+      <Unicode>0</Unicode>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>8</Offset>
+        <Offset>2C8</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>128</ID>
+      <Description>"keyRoomStr_val"</Description>
+      <LastState Activated="0" RealAddress="09D90EE0"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>String</VariableType>
+      <Length>32</Length>
+      <Unicode>0</Unicode>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>8</Offset>
+        <Offset>C</Offset>
+        <Offset>2D0</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>129</ID>
+      <Description>"keyRoomStr_pt"</Description>
+      <LastState Value="0C24F5B0" Activated="0" RealAddress="078632D0"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>2D0</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>83</ID>
+      <Description>"MyGender_val"</Description>
+      <LastState Activated="0" RealAddress="045B9081"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>String</VariableType>
+      <Length>4</Length>
+      <Unicode>0</Unicode>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>8</Offset>
+        <Offset>2C4</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>84</ID>
+      <Description>"MyGender_pt"</Description>
+      <LastState Value="088B53D0" Activated="0" RealAddress="078632C4"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>2C4</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>87</ID>
+      <Description>"MyCountry"</Description>
+      <LastState Activated="0" RealAddress="0C615E40"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>String</VariableType>
+      <Length>20</Length>
+      <Unicode>0</Unicode>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>8</Offset>
+        <Offset>2BC</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>86</ID>
+      <Description>"Eql9844kmgldiroURrX998q12Vgm"</Description>
+      <LastState Activated="0" RealAddress="0C5DB968"/>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>String</VariableType>
+      <Length>20</Length>
+      <Unicode>0</Unicode>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>"pepflashplayer.dll"+00D86388</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>8</Offset>
+        <Offset>2AC</Offset>
+        <Offset>3B4</Offset>
+        <Offset>760</Offset>
+        <Offset>4</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Toggle Activation</Action>
+          <Keys/>
+          <ID>0</ID>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>if (this.stealthmode == false &amp;&amp; this.isVip == false)</Description>
+      <Address>07466A72</Address>
+      <ModuleName/>
+      <ModuleNameOffset>0</ModuleNameOffset>
+      <Before>
+        <Byte>FF</Byte>
+        <Byte>D0</Byte>
+        <Byte>83</Byte>
+        <Byte>C4</Byte>
+        <Byte>10</Byte>
+      </Before>
+      <Actual>
+        <Byte>8B</Byte>
+        <Byte>B3</Byte>
+        <Byte>84</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>85</Byte>
+        <Byte>F6</Byte>
+        <Byte>0F</Byte>
+        <Byte>94</Byte>
+        <Byte>C0</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>if (this.isVip == true &amp;&amp; this.stealthmode == false)</Description>
+      <Address>07464503</Address>
+      <ModuleName/>
+      <ModuleNameOffset>0</ModuleNameOffset>
+      <Before>
+        <Byte>FF</Byte>
+        <Byte>D0</Byte>
+        <Byte>83</Byte>
+        <Byte>C4</Byte>
+        <Byte>10</Byte>
+      </Before>
+      <Actual>
+        <Byte>8B</Byte>
+        <Byte>83</Byte>
+        <Byte>80</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>83</Byte>
+        <Byte>F8</Byte>
+        <Byte>01</Byte>
+        <Byte>0F</Byte>
+        <Byte>94</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>color assign frame2</Description>
+      <Address>06EE02B1</Address>
+      <ModuleName/>
+      <ModuleNameOffset>0</ModuleNameOffset>
+      <Before>
+        <Byte>93</Byte>
+        <Byte>50</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>B8</Byte>
+        <Byte>20</Byte>
+        <Byte>55</Byte>
+        <Byte>D6</Byte>
+        <Byte>02</Byte>
+      </Actual>
+      <After>
+        <Byte>35</Byte>
+        <Byte>13</Byte>
+        <Byte>66</Byte>
+        <Byte>E5</Byte>
+        <Byte>02</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of call eax</Description>
+      <Address>0B5ADB30</Address>
+      <ModuleName/>
+      <ModuleNameOffset>0</ModuleNameOffset>
+      <Before>
+        <Byte>68</Byte>
+        <Byte>80</Byte>
+        <Byte>BA</Byte>
+        <Byte>BD</Byte>
+        <Byte>0B</Byte>
+      </Before>
+      <Actual>
+        <Byte>FF</Byte>
+        <Byte>D0</Byte>
+      </Actual>
+      <After>
+        <Byte>83</Byte>
+        <Byte>C4</Byte>
+        <Byte>10</Byte>
+        <Byte>8B</Byte>
+        <Byte>55</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of call eax</Description>
+      <Address>0668BAAC</Address>
+      <ModuleName/>
+      <ModuleNameOffset>0</ModuleNameOffset>
+      <Before>
+        <Byte>68</Byte>
+        <Byte>B8</Byte>
+        <Byte>E9</Byte>
+        <Byte>98</Byte>
+        <Byte>09</Byte>
+      </Before>
+      <Actual>
+        <Byte>FF</Byte>
+        <Byte>D0</Byte>
+      </Actual>
+      <After>
+        <Byte>83</Byte>
+        <Byte>C4</Byte>
+        <Byte>10</Byte>
+        <Byte>8B</Byte>
+        <Byte>55</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of call eax</Description>
+      <Address>0668BA80</Address>
+      <ModuleName/>
+      <ModuleNameOffset>0</ModuleNameOffset>
+      <Before>
+        <Byte>68</Byte>
+        <Byte>A0</Byte>
+        <Byte>E9</Byte>
+        <Byte>98</Byte>
+        <Byte>09</Byte>
+      </Before>
+      <Actual>
+        <Byte>FF</Byte>
+        <Byte>D0</Byte>
+      </Actual>
+      <After>
+        <Byte>83</Byte>
+        <Byte>C4</Byte>
+        <Byte>20</Byte>
+        <Byte>8B</Byte>
+        <Byte>4D</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of call eax</Description>
+      <Address>07C2C3B0</Address>
+      <ModuleName/>
+      <ModuleNameOffset>0</ModuleNameOffset>
+      <Before>
+        <Byte>04</Byte>
+        <Byte>52</Byte>
+        <Byte>6A</Byte>
+        <Byte>00</Byte>
+        <Byte>51</Byte>
+      </Before>
+      <Actual>
+        <Byte>FF</Byte>
+        <Byte>D0</Byte>
+      </Actual>
+      <After>
+        <Byte>83</Byte>
+        <Byte>C4</Byte>
+        <Byte>10</Byte>
+        <Byte>8B</Byte>
+        <Byte>45</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of call eax</Description>
+      <Address>07C2C37E</Address>
+      <ModuleName/>
+      <ModuleNameOffset>0</ModuleNameOffset>
+      <Before>
+        <Byte>68</Byte>
+        <Byte>78</Byte>
+        <Byte>C5</Byte>
+        <Byte>5D</Byte>
+        <Byte>07</Byte>
+      </Before>
+      <Actual>
+        <Byte>FF</Byte>
+        <Byte>D0</Byte>
+      </Actual>
+      <After>
+        <Byte>83</Byte>
+        <Byte>C4</Byte>
+        <Byte>10</Byte>
+        <Byte>8B</Byte>
+        <Byte>4D</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of mov [ebx+0000008C],00000001</Description>
+      <Address>064ABC11</Address>
+      <ModuleName/>
+      <ModuleNameOffset>0</ModuleNameOffset>
+      <Before>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>C7</Byte>
+        <Byte>83</Byte>
+        <Byte>8C</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>45</Byte>
+        <Byte>C8</Byte>
+        <Byte>89</Byte>
+        <Byte>45</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of mov [ebx+00000088],00000001</Description>
+      <Address>064ABBFD</Address>
+      <ModuleName/>
+      <ModuleNameOffset>0</ModuleNameOffset>
+      <Before>
+        <Byte>5D</Byte>
+        <Byte>C0</Byte>
+        <Byte>89</Byte>
+        <Byte>5D</Byte>
+        <Byte>8C</Byte>
+      </Before>
+      <Actual>
+        <Byte>C7</Byte>
+        <Byte>83</Byte>
+        <Byte>88</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>C7</Byte>
+        <Byte>83</Byte>
+        <Byte>90</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of mov [ebx+00000090],00000000</Description>
+      <Address>064ABC07</Address>
+      <ModuleName/>
+      <ModuleNameOffset>0</ModuleNameOffset>
+      <Before>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+      </Before>
+      <Actual>
+        <Byte>C7</Byte>
+        <Byte>83</Byte>
+        <Byte>90</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of ret </Description>
+      <Address>055C9D2D</Address>
+      <ModuleName/>
+      <ModuleNameOffset>0</ModuleNameOffset>
+      <Before>
+        <Byte>90</Byte>
+        <Byte>04</Byte>
+        <Byte>8B</Byte>
+        <Byte>E5</Byte>
+        <Byte>5D</Byte>
+      </Before>
+      <Actual>
+        <Byte>C3</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>90</Byte>
+        <Byte>74</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of mov esp,ebp</Description>
+      <Address>055C9D2A</Address>
+      <ModuleName/>
+      <ModuleNameOffset>0</ModuleNameOffset>
+      <Before>
+        <Byte>0D</Byte>
+        <Byte>40</Byte>
+        <Byte>18</Byte>
+        <Byte>90</Byte>
+        <Byte>04</Byte>
+      </Before>
+      <Actual>
+        <Byte>8B</Byte>
+        <Byte>E5</Byte>
+      </Actual>
+      <After>
+        <Byte>5D</Byte>
+        <Byte>90</Byte>
+        <Byte>8B</Byte>
+        <Byte>90</Byte>
+        <Byte>74</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of pop ebp</Description>
+      <Address>055C9D2C</Address>
+      <ModuleName/>
+      <ModuleNameOffset>0</ModuleNameOffset>
+      <Before>
+        <Byte>18</Byte>
+        <Byte>90</Byte>
+        <Byte>04</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+      </Before>
+      <Actual>
+        <Byte>5D</Byte>
+      </Actual>
+      <After>
+        <Byte>90</Byte>
+        <Byte>8B</Byte>
+        <Byte>90</Byte>
+        <Byte>74</Byte>
+        <Byte>01</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of test edx,edx</Description>
+      <Address>055C9D46</Address>
+      <ModuleName/>
+      <ModuleNameOffset>0</ModuleNameOffset>
+      <Before>
+        <Byte>B8</Byte>
+        <Byte>04</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>85</Byte>
+        <Byte>D2</Byte>
+      </Actual>
+      <After>
+        <Byte>0F</Byte>
+        <Byte>84</Byte>
+        <Byte>55</Byte>
+        <Byte>03</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of je 055CA0A3</Description>
+      <Address>055C9D48</Address>
+      <ModuleName/>
+      <ModuleNameOffset>0</ModuleNameOffset>
+      <Before>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+      </Before>
+      <Actual>
+        <Byte>0F</Byte>
+        <Byte>84</Byte>
+        <Byte>55</Byte>
+        <Byte>03</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>45</Byte>
+        <Byte>E4</Byte>
+        <Byte>8D</Byte>
+        <Byte>80</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols/>
+  <Comments>Buscar este array of bytes
+FF FF FF FF 00 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00
+si la dir termina en 30 esta bien
+Salas con clave:
+http://www.bierkandt.org/encryption/symmetric_encryption.php
+this.rijndael_key = pZwq50ol87t
+Mode ECB
+RIJNDAEL-128
+http://www.seguridadwireless.net/php/conversor-universal-wireless.php
+Admin tools
+1)
+Esto es para rastrear las admintools en el frame2
+if (this.isVip == true &amp;&amp; this.stealthmode == false)
+8B 83 80000000 83 F8 01   
+2) Luego buscar 84000000 para encontrar 
+if (this.stealthmode == false &amp;&amp; this.isVip == false)
+corroborar que primero accede a ebx+0x84 y luego a ebx+0x80
+3) Finalmente buscar 
+b8 ?? ?? ?? ?? 35
+B8 7BA55315 35 48966015    
+Las palabras en bytes son un mov seguido por un xor que es equivalente a:
+this.optionsFormat.color = 3355443;
+asignacion de 3355443
+this.optionsFormat.size = "12";
+this.optionsFormat.bold = true;
+this.Application.optionsMC.vipCheck.setStyle("textFormat", this.optionsFormat);
+this.Application.optionsMC.userCheck.setStyle("textFormat", this.optionsFormat);
+this.Application.optionsMC.pvCheck.setStyle("textFormat", this.optionsFormat);
+this.Application.optionsMC.invCheck.setStyle("textFormat", this.optionsFormat);
+this.Application.optionsMC.avisos.setStyle("textFormat", this.optionsFormat);
+this.Application.optionsMC.bellCheck.setStyle("textFormat", this.optionsFormat);
+this.Application.optionsMC.close_opt.setStyle("textFormat", this.optionsFormat);
+this.Application.optionsMC.cam_conf_bt.setStyle("textFormat", this.optionsFormat);
+this.Application.bigRegister.bigLink.setStyle("textFormat", this.startCamFormat);
+this.Application.bigRegister.closeLink.setStyle("textFormat", this.startCamFormat);
+this.Application.mensPv.pv_msg.setStyle("textFormat", this.formatPVMsg);
+this.Application.mensPv.pv_msg.condenseWhite = true;
+this.Application.msg.setStyle("textFormat", this.formatMsg);
+this.login_mc.login_btn.setStyle("textFormat", this.loginFormat2);
+this.login_mc.login_name.setStyle("textFormat", this.loginFormat);
+this.login_mc.age_box.textField.setStyle("textFormat", this.loginFormat2);
+this.login_mc.age_box.dropdown.setRendererStyle("textFormat", this.loginFormat2);
+this.Application.msg.condenseWhite = true;
+this.login_mc.login_name.condenseWhite = true;
+if (this.stealthmode == false &amp;&amp; this.isVip == false)
+</Comments>
+  <LuaScript>function IP_editKeyPress(sender, key)
+
+  return key
+end
+function IP_enc_editKeyPress(sender, key)
+
+  return key
+end
+function GetSWF_versions_OnClick(sender)
+
+end
+function users_list_OnClick(sender)
+
+end
+function users_list_OnDClick(sender)
+
+end
+</LuaScript>
+  <DisassemblerComments>
+    <DisassemblerComment>
+      <Address>07466A72</Address>
+      <Comment>if (this.stealthmode == false &amp;&amp; this.isVip 
+== false)
+</Comment>
+    </DisassemblerComment>
+  </DisassemblerComments>
+</CheatTable>
