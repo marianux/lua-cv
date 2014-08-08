@@ -496,6 +496,8 @@ function debugger_onBreakpoint()
 	local keyRoomStr_val = memoryrecord_getValue(memrec1);
 	if( not(tempPW == keyRoomStr_val) ) then
 
+		print('Psw change to ' .. tempPW)
+	
 		memoryrecord_setValue(memrec1, tempPW)
 
 		anonymize();
