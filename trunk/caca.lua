@@ -638,7 +638,7 @@ function rooms_list_OnDClick(sender)
 	
 	-- to do Age
 	
-	memrec1=addresslist_getMemoryRecordByDescription(addresslist, 'goingToRoom') 
+	memrec1=addresslist_getMemoryRecordByDescription(addresslist, 'changingRoom') 
 	bpAddress=memoryrecord_getAddress(memrec1) 
 	memrec1=addresslist_getMemoryRecordByDescription(addresslist, 'roomID') 
 	curr_room_ID = memoryrecord_getValue(memrec1);
@@ -651,7 +651,7 @@ function rooms_list_OnDClick(sender)
 		bpSet = true;
 		
 		print('Breaking on write to ' .. bpAddress)
-		debug_setBreakpoint(bpAddress, 1, bptAccess)
+		debug_setBreakpoint(bpAddress, 1, bptWrite)
 		print('Ready to switch Room')
 	end
 	
@@ -1192,7 +1192,7 @@ end
 if (pid_found~=nil) then
 	
 	debugProcess()
-	print('PID ' .. string.format('%X',pid_found)  .. ' found ! :)')
+	print('PID 0x' .. string.format('%X',pid_found)  .. ' (' .. pid_found .. ')  found ! :)')
 --
 --	memrec1=addresslist_getMemoryRecordByDescription(addresslist, 'rejected') 
 --	rejectBPAddress=memoryrecord_getAddress(memrec1) 
