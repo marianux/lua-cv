@@ -979,6 +979,34 @@ function GetSWF_versions_OnClick(sender)
 	
 end
 
+function AOBSwap(aobIn,aobOut) 
+ aobOut = aobOut:gsub('[^%w]','') -- remove all spaces 
+
+ local bOk = false;
+ local _aobOut='' 
+ for i=1,#aobOut,2 do 
+  _aobOut = _aobOut..aobOut:sub(i,i+1)..' '  -- add spaces (only the needed ones) 
+ end 
+
+ local address = 0 
+
+--AOBScan("aobstring", protectionflags OPTIONAL, alignmenttype OPTIONAL, alignmentparam HALFOPTIONAL) 
+
+
+ local aobs = AOBScan(aobIn, '+W*X-C', 1) -- you can change here: protection flags and alignment (e.g. writable, addresses dividable by 4) 
+ if(aobs ~= nil) then 
+   for i = 0,aobs.Count-1 do 
+     address = aobs.String[i] 
+     autoAssemble(address..[[: 
+                  db ]].._aobOut) 
+   end 
+   bOk = true;
+   aobs.destroy() 
+   
+ end 
+ 
+ return bOk
+end
 
 
 function GetRooms_OnClick(sender)
@@ -1192,11 +1220,137 @@ end
 if (pid_found~=nil) then
 	
 	debugProcess()
-	print('PID 0x' .. string.format('%X',pid_found)  .. ' (' .. pid_found .. ')  found ! :)')
+	print('PID 0x' .. string.format('%X',pid_found)  .. ' (' .. string.format('%d',pid_found) .. ')  found ! :)')
 --
 --	memrec1=addresslist_getMemoryRecordByDescription(addresslist, 'rejected') 
 --	rejectBPAddress=memoryrecord_getAddress(memrec1) 
 --	debug_setBreakpoint(rejectBPAddress, 1, bptWrite)
+	
+	local str_section = "[login func] ";
+
+	bOk = AOBSwap( 'd0 30 d0 66 c0 08 66 a8 10 27 61 99 10 d0 66 c0 08 66 a8 10 2c 01 61 f9 0f d0 66 c0 08 66 a9 10 66 f9 0f 2c 01 ab 2a 11 0f 00 00 29 d0 66 c0 08 66 a9 10 66 f9 0f 2c b6 0e ab 12 21 00 00 d0 2c 90 12 4f 91 0a 01 d0 66 c0 08 66 a8 10 26 61 99 10 d0 66 c0 08 66 a8 10 2c 91 12 61 f9 0f 47 d0 66 c0 08 66 a9 10 66 f9 0f 2c 92 12 ab 2a 11 0f 00 00 29 d0 66 c0 08 66 a9 10 66 f9 0f 2c 93 12 ab 12 19 00 00 d0 66 c0 08 66 a8 10 26 61 99 10 d0 66 c0 08 66 a8 10 2c 94 12 61 f9 0f 47 d0 66 c0 08 66 a9 10 66 f9 0f 2c 95 12 ab 2a 11 0f 00 00 29 d0 66 c0 08 66 a9 10 66 f9 0f 2c 96 12 ab 12 24 00 00 d0 66 c0 08 66 a8 10 26 61 99 10 d0 66 c0 08 66 a8 10 2c 94 12 61 f9 0f d0 66 9e 0a 2c 97 12 4f b4 01 01 47 d0 66 c0 08 66 a9 10 66 f9 0f 66 aa 10 24 04 0c 24 00 00 d0 66 c0 08 66 a8 10 26 61 99 10 d0 66 c0 08 66 a8 10 2c 98 12 61 f9 0f d0 66 9e 0a 2c 99 12 4f b4 01 01 47 d0 66 a7 0a 2c 01 14 19 00 00 d0 66 c0 08 66 a8 10 26 61 99 10 d0 66 c0 08 66 a8 10 2c 9a 12 61 f9 0f 47 d0 66 c0 08 66 ab 10 66 ac 10 66 f6 0f 2c 9d 12 14 24 00 00 d0 66 c0 08 66 a8 10 26 61 99 10 d0 66 c0 08 66 a8 10 2c 9e 12 61 f9 0f d0 66 9e 0a 2c 9f 12 4f b4 01 01 47 d0 66 c0 08 66 ad 10 66 ae 10 27 14 2c 00 00 d0 66 c0 08 66 a8 10 26 61 99 10 d0 2c a1 12 4f 91 0a 01 d0 66 c0 08 66 a8 10 2c a2 12 61 f9 0f d0 66 9e 0a 2c a3 12 4f b4 01 01 47 d0 66 c0 08 66 a8 10 2c a4 12 61 f9 0f d0 66 c0 08 66 a8 10 26 61 99 10 d0 66 c0 08 66 f4 0f 27 61 f5 0f d0 66 c0 08 66 af 10 26 61 99 10 d0 d0 66 c0 08 66 ab 10 66 ac 10 66 b0 10 68 a8 0a d0 d0 66 c0 08 66 a9 10 66 f9 0f 68 a6 0a d0 66 bc 08 66 b1 10 66 b2 10 d0 66 a6 0a 61 f9 0f d0 66 bc 08 66 b3 10 d0 66 a6 0a 61 f9 0f d0 66 bc 08 66 b1 10 66 b4 10 27 61 99 10 d0 66 bc 08 66 b1 10 66 b5 10 27 61 99 10 d0 66 bc 08 66 b1 10 66 b6 10 27 61 99 10 d0 66 a7 0a 2c ab 12 14 0e 00 00 d0 66 bc 08 66 b1 10 66 b4 10 26 61 99 10 d0 66 a7 0a 2c ac 12 14 0e 00 00 d0 66 bc 08 66 b1 10 66 b5 10 26 61 99 10 d0 66 a7 0a 2c ad 12 ab 2a 12 07 00 00 29 d0 66 9f 0a 26 ab 12 0e 00 00 d0 66 bc 08 66 b1 10 66 b6 10 26 61 99 10 d0 66 c0 08 66 a8 10 27 61 99 10 d0 4f d7 0a 00 d0 4f 8c 0a 00 d0 d0 66 a6 0a 68 9d 0a 47 ', 
+			       'd0 30 d0 66 c0 08 66 a8 10 27 61 99 10 d0 66 c0 08 66 a8 10 2c 01 61 f9 0f d0 66 c0 08 66 a9 10 66 f9 0f 2c 01 ab 2a 11 0f 00 00 29 d0 66 c0 08 66 a9 10 66 f9 0f 2c b6 0e ab 12 21 00 00 d0 2c 90 12 4f 91 0a 01 d0 66 c0 08 66 a8 10 26 61 99 10 d0 66 c0 08 66 a8 10 2c 91 12 61 f9 0f 47 d0 66 c0 08 66 a9 10 66 f9 0f 2c 92 12 ab 2a 11 0f 00 00 29 d0 66 c0 08 66 a9 10 66 f9 0f 2c 93 12 ab 12 19 00 00 d0 66 c0 08 66 a8 10 26 61 99 10 d0 66 c0 08 66 a8 10 2c 94 12 61 f9 0f 47 d0 66 c0 08 66 a9 10 66 f9 0f 2c 95 12 ab 2a 11 0f 00 00 29 d0 66 c0 08 66 a9 10 66 f9 0f 2c 96 12 ab 12 24 00 00 d0 66 c0 08 66 a8 10 26 61 99 10 d0 66 c0 08 66 a8 10 2c 94 12 61 f9 0f d0 66 9e 0a 2c 97 12 4f b4 01 01 47 d0 66 c0 08 66 a9 10 66 f9 0f 66 aa 10 24 04 0c 24 00 00 d0 66 c0 08 66 a8 10 26 61 99 10 d0 66 c0 08 66 a8 10 2c 98 12 61 f9 0f d0 66 9e 0a 2c 99 12 4f b4 01 01 47 d0 66 a7 0a 2c 01 14 19 00 00 d0 66 c0 08 66 a8 10 26 61 99 10 d0 66 c0 08 66 a8 10 2c 9a 12 61 f9 0f 47 d0 66 c0 08 66 ab 10 66 ac 10 66 f6 0f 2c 9d 12 14 24 00 00 d0 66 c0 08 66 a8 10 26 61 99 10 d0 66 c0 08 66 a8 10 2c 9e 12 61 f9 0f d0 66 9e 0a 2c 9f 12 4f b4 01 01 47 d0 66 c0 08 66 a8 10 2c a4 12 61 f9 0f d0 66 c0 08 66 a8 10 26 61 99 10 d0 66 c0 08 66 f4 0f 27 61 f5 0f d0 66 c0 08 66 af 10 26 61 99 10 d0 d0 66 c0 08 66 ab 10 66 ac 10 66 b0 10 68 a8 0a d0 d0 66 c0 08 66 a9 10 66 f9 0f 68 a6 0a d0 66 bc 08 66 b1 10 66 b2 10 d0 66 a6 0a 61 f9 0f d0 66 bc 08 66 b3 10 d0 66 a6 0a 61 f9 0f d0 66 bc 08 66 b1 10 66 b4 10 27 61 99 10 d0 66 bc 08 66 b1 10 66 b5 10 27 61 99 10 d0 66 bc 08 66 b1 10 66 b6 10 27 61 99 10 d0 66 a7 0a 2c ab 12 14 0e 00 00 d0 66 bc 08 66 b1 10 66 b4 10 26 61 99 10 d0 66 a7 0a 2c ac 12 14 0e 00 00 d0 66 bc 08 66 b1 10 66 b5 10 26 61 99 10 d0 66 a7 0a 2c ad 12 ab 2a 12 07 00 00 29 d0 66 9f 0a 26 ab 12 0e 00 00 d0 66 bc 08 66 b1 10 66 b6 10 26 61 99 10 d0 66 c0 08 66 a8 10 27 61 99 10 d0 4f d7 0a 00 d0 4f 8c 0a 00 d0 d0 66 a6 0a 68 9d 0a d0 d0 66 a6 0a 85 61 fd 08 d0 d0 66 a4 0a 85 61 d0 09 d0 d0 66 a8 0a 75 61 fc 08 47 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02')
+	
+	if( bOk ) then
+		print(str_section .. 'patched!')
+	else
+		print(str_section .. 'WARNING: Could not patch :(')
+	end
+	
+	local str_section = "[changeRoom funct] ";
+
+	bOk = AOBSwap( 'd0 30 21 82 63 09 21 82 63 0a 21 82 63 0b d1 66 bb 0d 66 ac 10 66 f6 0f 82 d6 d0 d2 68 c6 0a d1 66 bb 0d 66 ac 10 66 fb 10 82 d7 d1 66 bb 0d 66 ac 10 66 fc 10 82 63 04 d1 66 bb 0d 66 ac 10 66 fd 10 82 63 05 d0 d1 66 bb 0d 66 ac 10 66 fe 10 68 93 09 d1 66 bb 0d 66 ac 10 66 ea 10 82 63 06 d1 66 bb 0d 66 ac 10 66 e8 10 82 63 07 d1 66 bb 0d 66 ac 10 66 e6 10 82 63 08 d2 d0 66 ce 0a 14 01 00 00 47 d2 20 14 01 00 00 47 d0 66 b6 0a d0 66 93 09 14 01 00 00 47 d1 66 bb 0d 66 ac 10 66 f6 0f 60 80 0e 14 01 00 00 47 62 04 62 06 0f 3c 00 00 d0 66 9e 0a 2c 93 13 2c 94 13 2c 95 13 4f a6 01 03 2c 96 13 d0 66 93 09 a0 2c 97 13 a0 62 06 a0 2c 98 13 a0 82 63 09 d0 66 bf 0a 2c ee 11 62 09 55 01 4f 82 0d 01 d0 4f 9f 09 00 47 62 05 12 2c 00 00 d0 66 9e 0a 2c 93 13 2c 94 13 2c 99 13 4f a6 01 03 2c 9a 13 82 63 0a d0 66 bf 0a 2c ee 11 62 0a 55 01 4f 82 0d 01 d0 4f 9f 09 00 47 62 04 d0 66 c2 0a 0e 35 00 00 d0 66 9e 0a 2c 93 13 2c 94 13 2c 9b 13 4f a6 01 03 2c 9c 13 d0 66 93 09 a0 2c 9d 13 a0 82 63 0b d0 66 bf 0a 2c ee 11 62 0b 55 01 4f 82 0d 01 d0 4f 9f 09 00 47 d3 2c f0 12 14 01 00 00 47 d3 2c 01 ab 96 2a 12 04 00 00 29 62 08 96 12 26 00 00 d0 d3 68 91 09 d0 66 bc 08 d0 66 ce 08 56 01 61 ff 10 d0 66 bf 08 26 61 85 08 d0 66 bf 08 66 80 11 4f 81 11 00 47 d0 26 68 cd 0a d0 66 bc 08 66 82 11 4f 83 11 00 d0 66 bc 08 66 82 11 2c 92 0b 2c a1 13 55 01 4f 84 11 01 d0 4f b3 09 00 d0 4f d6 0a 00 47', 
+			       'd0 30 21 82 63 09 21 82 63 0a 21 82 63 0b d1 66 bb 0d 66 ac 10 66 f6 0f 82 d6 d0 d2 68 c6 0a d1 66 bb 0d 66 ac 10 66 fb 10 82 d7 d1 66 bb 0d 66 ac 10 66 fc 10 82 63 04 d1 66 bb 0d 66 ac 10 66 fd 10 82 63 05 d0 d1 66 bb 0d 66 ac 10 66 fe 10 68 93 09 d1 66 bb 0d 66 ac 10 66 ea 10 82 63 06 d1 66 bb 0d 66 ac 10 66 e8 10 82 63 07 d1 66 bb 0d 66 ac 10 66 e6 10 82 63 08 d2 d0 66 ce 0a 14 01 00 00 47 d2 20 14 01 00 00 47 d0 66 b6 0a d0 66 93 09 14 01 00 00 47 d1 66 bb 0d 66 ac 10 66 f6 0f 60 80 0e 14 01 00 00 47 d3 2c 01 ab 96 2a 12 04 00 00 29 62 08 96 12 26 00 00 d0 d3 68 91 09 d0 66 bc 08 d0 66 ce 08 56 01 61 ff 10 d0 66 bf 08 26 61 85 08 d0 66 bf 08 66 80 11 4f 81 11 00 47 d0 d0 66 a6 0a 85 61 fd 08 d0 d0 66 a4 0a 85 61 d0 09 d0 d0 66 a8 0a 75 61 fc 08 d0 26 68 cd 0a d0 66 bc 08 66 82 11 4f 83 11 00 d0 66 bc 08 66 82 11 2c 92 0b 2c a1 13 55 01 4f 84 11 01 d0 4f b3 09 00 d0 4f d6 0a 00 47 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02')
+	
+	if( bOk ) then
+		print(str_section .. 'patched!')
+	else
+		print(str_section .. 'WARNING: Could not patch :(')
+	end
+	
+	local str_section = "[Locked rooms] ";
+
+	bOk = AOBSwap( 'd0 30 20 85 d6 5d 71 4a 71 00 80 71 d5 d1 d0 66 bf 08 66 80 11 66 f9 0f d0 66 e6 09 2c d1 0c 46 7c 03 85 d6 d2 d0 66 91 09 13 2e 00 00 d0 66 bf 08 66 80 11 2c 01 61 f9 0f d0 66 bf 08 66 c9 11 26 61 99 10 d0 66 bf 08 66 80 11 4f 81 11 00 d0 66 9e 0a 2c 92 14 4f b4 01 01 47 d2 d0 66 91 09 14 7a 00 00 d0 d2 68 b7 0a d0 66 9e 0a 2c 93 14 4f b4 01 01 d0 66 bf 08 27 61 85 08 d0 66 bf 08 66 c9 11 27 61 99 10 d0 26 68 cd 0a d0 66 bc 08 66 82 11 4f 83 11 00 d0 66 bc 08 66 82 11 2c 92 0b 2c 94 14 55 01 4f 84 11 01 d0 4f 87 09 00 d0 4f b6 09 00 d0 4f b3 09 00 d0 66 bc 08 20 61 ff 10 d0 66 bf 08 66 80 11 2c 01 61 f9 0f d0 66 bf 08 66 c9 11 27 61 99 10 d0 4f d6 0a 00 47 47  ', 
+			       'd0 30 20 85 d6 5d 71 4a 71 00 80 71 d5 d1 d0 66 bf 08 66 80 11 66 f9 0f d0 66 e6 09 2c d1 0c 46 7c 03 85 d6 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 d0 2c fa 0c 85 61 a6 0a d0 d0 66 a6 0a 85 61 ab 14 d0 2c fa 0c 85 61 a4 0a d0 24 00 75 61 a8 0a d0 d0 66 91 09 85 61 b7 0a d0 66 9e 0a 2c 93 14 4f b4 01 01 d0 66 bf 08 27 61 85 08 d0 66 bf 08 66 c9 11 27 61 99 10 d0 26 68 cd 0a d0 66 bc 08 66 82 11 4f 83 11 00 d0 66 bc 08 66 82 11 2c 92 0b 2c 94 14 55 01 4f 84 11 01 d0 4f 87 09 00 d0 4f b6 09 00 d0 4f b3 09 00 d0 66 bc 08 20 61 ff 10 d0 66 bf 08 66 80 11 2c 01 61 f9 0f d0 66 bf 08 66 c9 11 27 61 99 10 d0 4f d6 0a 00 47 02 ')
+	
+	if( bOk ) then
+		print(str_section .. 'patched!')
+	else
+		print(str_section .. 'WARNING: Could not patch :(')
+	end
+	
+	local str_section = "[User info] ";
+
+	bOk = AOBSwap( 'd0 30 d0 66 bc 08 66 82 11 d1 66 ee 04 46 92 11 01 66 93 11 82 d6 d0 66 bc 08 66 82 11 d1 66 ee 04 46 92 11 01 66 f7 10 82 d7 d0 66 bc 08 66 82 11 d1 66 ee 04 46 92 11 01 66 f5 10 82 63 04 d0 66 bc 08 66 82 11 d1 66 ee 04 46 92 11 01 66 f4 10 82 63 05 d0 66 bc 08 66 82 11 d1 66 ee 04 46 92 11 01 66 f2 10 82 63 06 d0 66 bc 08 66 82 11 d1 66 ee 04 46 92 11 01 66 f3 10 82 63 07 62 04 24 12 0c 05 00 00 24 12 82 63 04 d0 66 bc 08 66 8e 11 2c c1 13 62 05 a0 2c c2 13 a0 62 04 a0 2c c3 13 a0 61 8f 11 62 04 60 80 0e 13 0b 00 00 d0 66 bc 08 66 8e 11 4f 90 11 00 47 ', 
+			       'd0 30 d0 66 bc 08 66 82 11 d1 66 ee 04 46 92 11 01 66 93 11 82 d6 d0 66 bc 08 66 82 11 d1 66 ee 04 46 92 11 01 66 f7 10 82 d7 d0 66 bc 08 66 82 11 d1 66 ee 04 46 92 11 01 66 f5 10 82 63 04 d0 66 bc 08 66 82 11 d1 66 ee 04 46 92 11 01 66 f4 10 82 63 05 d0 66 bc 08 66 82 11 d1 66 ee 04 46 92 11 01 66 f2 10 82 63 06 d0 66 bc 08 66 82 11 d1 66 ee 04 46 92 11 01 66 f3 10 82 63 07 62 05 62 04 a0 82 63 05 d2 62 06 a0 82 63 04 d0 66 bc 08 66 8e 11 2c c1 13 62 05 a0 2c c2 13 a0 62 04 a0 2c c3 13 a0 61 8f 11 d0 66 bc 08 66 8e 11 4f 90 11 00 47 02 02 02 02 02 02 02 ')
+	
+	if( bOk ) then
+		print(str_section .. 'patched!')
+	else
+		print(str_section .. 'WARNING: Could not patch :(')
+	end
+	
+	local str_section = "[syncEventHandler2 function] ";
+	bOk = AOBSwap( 'd3 66 eb 10 2c 01 14 01 00 00 47 d3 66 eb 10 d0 66 bc 08 66 b7 10 66 b8 10 66 f9 0f 14 15 00 00 d0 66 bc 08 66 b7 10 66 c9 10 d3 66 ec 10 46 ed 10 00 61 b0 10 d3 66 eb 10 d0 66 bc 08 66 ee 10 66 b8 10 66 f9 0f 14 15 00 00 d0 66 bc 08 66 ee 10 66 c9 10 d3 66 ec 10 46 ed 10 00 61 b0 10 d3 66 eb 10 d0 66 bc 08 66 ef 10 66 b8 10 66 f9 0f 14 15 00 00 d0 66 bc 08 66 ef 10 66 c9 10 d3 66 ec 10 46 ed 10 00 61 b0 10 d0 66 b6 0a 2c e1 12 ab 2a 12 09 00 00 29 d0 66 96 09 25 9f 01 b0 12 8a 00 00 d3 66 f0 10 2c fe 12 ab 2a 11 09 00 00 29 d3 66 f1 10 2c ac 12 ab 12 70 00 00 d0 66 9e 09 2c 92 0b d3 66 eb 10 2c ee 06 d3 66 eb 10 2c ff 12 d3 66 f1 10 2c a1 0a d3 66 f0 10 2c 80 13 d3 66 f2 10 2c 81 13 d3 66 f3 10 2c 82 13 d3 66 f4 10 2c 83 13 d3 66 f5 10 2c 84 13 d3 66 f6 10 2c 86 13 d3 66 f7 10 55 0a 4f d7 05 01 d0 66 9e 09 d0 66 c1 0a 2c ff 12 2c 92 0b 56 03 60 0b 66 f8 10 60 0b 66 f9 10 56 02 4f 8c 07 02 d0 66 b6 0a 2c e1 12 ab 96 2a 12 09 00 00 29 d0 66 97 09 25 9f 01 b0 12 8a 00 00 d3 66 f0 10 2c fe 12 ab 2a 11 09 00 00 29 d3 66 f1 10 2c ac 12 ab 12 70 00 00 d0 66 9e 09 2c 92 0b d3 66 eb 10 2c ee 06 d3 66 eb 10 2c ff 12 d3 66 f1 10 2c a1 0a d3 66 f0 10 2c 80 13 d3 66 f2 10 2c 81 13 d3 66 f3 10 2c 82 13 d3 66 f4 10 2c 83 13 d3 66 f5 10 2c 84 13 d3 66 f6 10 2c 86 13 d3 66 f7 10 55 0a 4f d7 05 01 d0 66 9e 09 d0 66 c1 0a 2c ff 12 2c 92 0b 56 03 60 0b 66 f8 10 60 0b 66 f9 10 56 02 4f 8c 07 02 d0 66 b6 0a 2c e1 12 ab 96 2a 12 09 00 00 29 d0 66 97 09 25 9f 01 ad 12 70 00 00 d0 66 9e 09 2c 92 0b d3 66 eb 10 2c ee 06 d3 66 eb 10 2c ff 12 d3 66 f1 10 2c a1 0a d3 66 f0 10 2c 80 13 d3 66 f2 10 2c 81 13 d3 66 f3 10 2c 82 13 d3 66 f4 10 2c 83 13 d3 66 f5 10 2c 84 13 d3 66 f6 10 2c 86 13 d3 66 f7 10 55 0a 4f d7 05 01 d0 66 9e 09 d0 66 c1 0a 2c ff 12 2c 92 0b 56 03 60 0b 66 f8 10 60 0b 66 f9 10 56 02 4f 8c 07 02 d0 66 b6 0a 2c e1 12 ab 2a 12 09 00 00 29 d0 66 96 09 25 9f 01 ad 12 70 00 00 d0 66 9e 09 2c 92 0b d3 66 eb 10 2c ee 06 d3 66 eb 10 2c ff 12 d3 66 f1 10 2c a1 0a d3 66 f0 10 2c 80 13 d3 66 f2 10 2c 81 13 d3 66 f3 10 2c 82 13 d3 66 f4 10 2c 83 13 d3 66 f5 10 2c 84 13 d3 66 f6 10 2c 86 13 d3 66 f7 10 55 0a 4f d7 05 01 d0 66 9e 09 d0 66 c1 0a 2c ff 12 2c 92 0b 56 03 60 0b 66 f8 10 60 0b 66 f9 10 56 02 4f 8c 07 02 ', 
+			       'd0 66 9e 09 2c 92 0b d3 66 eb 10 2c ee 06 d3 66 eb 10 2c ff 12 d3 66 f1 10 2c a1 0a d3 66 f0 10 2c 80 13 d3 66 f2 10 2c 81 13 d3 66 f3 10 2c 82 13 d3 66 f4 10 2c 83 13 d3 66 f5 10 2c 84 13 d3 66 f6 10 2c c0 13 d3 66 93 11 55 0a 4f d7 05 01 d0 66 9e 09 d0 66 c1 0a 2c ff 12 2c 92 0b 56 03 60 0b 66 f8 10 60 0b 66 f9 10 56 02 4f 8c 07 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 ')
+	
+	if( bOk ) then
+		print(str_section .. 'patched!')
+	else
+		print(str_section .. 'WARNING: Could not patch :(')
+	end
+	
+	local str_section = "[Priv rooms] ";
+	bOk = AOBSwap( '2c ec 12 2c ed 12 2c ee 12 2c 01 2c ef 12 2c f0 12 2c f1 12 d3 66 e7 10 55 06 4f d7 05 01', 
+			       '2c ec 12 d3 66 e8 10 2c ee 06 d3 66 fb 0f 2c f1 12 d3 66 e7 10 55 05 4f d7 05 01 02 02 02')
+	
+	if( bOk ) then
+		print(str_section .. 'patched!')
+	else
+		print(str_section .. 'WARNING: Could not patch :(')
+	end
+	
+	local str_section = "[bigCamTimer] ";
+	bOk = AOBSwap( 'd0 66 ff 08 4f ab 07 02', 
+			       '02 02 02 02 02 02 02 02')
+				   
+	if( bOk ) then
+		print(str_section .. 'patched!')
+	else
+		print(str_section .. 'WARNING: Could not patch :(')
+	end
+	
+	local str_section = "[sendMsgTimer] ";
+	bOk = AOBSwap( 'd0 66 ab 09 4f ab 07 02', 
+			       '02 02 02 02 02 02 02 02')
+				   
+	if( bOk ) then
+		print(str_section .. 'patched!')
+	else
+		print(str_section .. 'WARNING: Could not patch :(')
+	end
+	
+	local str_section = "[maleCamTimer] ";
+	bOk = AOBSwap( 'd0 66 d3 09 4f ab 07 02', 
+			       '02 02 02 02 02 02 02 02')
+				   
+	if( bOk ) then
+		print(str_section .. 'patched!')
+	else
+		print(str_section .. 'WARNING: Could not patch :(')
+	end
+	
+	local str_section = "[timeOut88] ";
+	bOk = AOBSwap( 'd0 66 fb 09 4f ab 07 02', 
+			       '02 02 02 02 02 02 02 02')
+				   
+	if( bOk ) then
+		print(str_section .. 'patched!')
+	else
+		print(str_section .. 'WARNING: Could not patch :(')
+	end
+	
+	local str_section = "[floodBan] ";
+	bOk = AOBSwap( 'd0 30 d0 26 68 a3 0a d0 66 bc 08 27 61 85 08 d0 4f b3 09 00 d0 2c f3 14 4f 91 0a 01 d0 66 9e 0a 2c f4 14 4f b4 01 01 47', 
+			       '02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 47')
+				   
+	if( bOk ) then
+		print(str_section .. 'patched!')
+	else
+		print(str_section .. 'WARNING: Could not patch :(')
+	end
+	
+	local str_section = "[SendMsg filters] ";
+	bOk = AOBSwap( 'd0 30 21 82 d6 21 82 d7 d0 66 bc 08 66 95 10 66 f9 0f 2c 01 14 01 00 00 47 d0 66 a9 09 12 25 00 00 2c a8 13 82 d6 d0 66 bf 0a 2c ee 11 d2 55 01 4f 82 0d 01 d0 4f 9f 09 00 d0 66 bc 08 66 95 10 2c 01 61 f9 0f 47 d0 66 c0 0a 12 24 00 00 2c a9 13 82 d7 d0 66 9e 0a 2c aa 13 4f b4 01 01 d0 66 bf 0a 2c ee 11 d3 55 01 4f 82 0d 01 d0 4f 9f 09 00 47 d0 66 bc 08 66 95 10 66 f9 0f 82 d5 d1 2c 01 13 12 00 00 d0 d1 4f b0 09 01 d0 66 bc 08 66 95 10 2c 01 61 f9 0f 47 ', 
+			       'd0 30 21 82 d6 21 82 d7 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 d0 66 bc 08 66 95 10 66 f9 0f 82 d5 d1 2c 01 13 12 00 00 02 02 02 02 02 02 d0 66 bc 08 66 95 10 2c 01 61 f9 0f 47 ')
+				   
+	if( bOk ) then
+		print(str_section .. 'patched!')
+	else
+		print(str_section .. 'WARNING: Could not patch :(')
+	end
+	
+
 	
 else
 	print('AOB not found')
