@@ -1182,8 +1182,13 @@ else
 		  --print(pid)
 		  j=string.find(pid,'chrome')
 		  if (j==nil) then
+			  j=string.find(pid,'FlashPlayerPlugin')
+		  end
+		  
+		  if (j==nil) then
+
 				 --print('Chrome not found')
-			  else
+		  else
 
 			  --print("Found "..pid)
 			  
