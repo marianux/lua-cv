@@ -45,7 +45,7 @@ package
       
       public function videoChat()
       {
-         this.tracker = new GATracker(stage,"UA-6669334-3","AS3",false);
+         this.tracker = new GATracker(stage,"UA-6669334-1","AS3",false);
          this.bannedDevices = new Array();
          this.badCamsLoader = new URLLoader();
          this.camIgnoringMe = new Array("0.0.0.0");
@@ -93,8 +93,6 @@ package
       
       public function loaderMissing(param1:IOErrorEvent) : void
       {
-         this.tracker.trackPageview("XML ERROR, IS  YOUR XML FILE THERE?");
-         this.showAlerts("\nError XML\nTe recomendamos borrar el cache de tu navegador y recargar la pagina.");
          this.login_mc.login_btn.enabled = false;
          this.login_mc.visible = false;
       }
@@ -135,16 +133,13 @@ package
          {
             changingRoom = true;
             myCountry = recibir.data.replace(new RegExp("^\\s+|\\s+$","g"),"");
-            if(myCountry.length > 25)
+            if(myCountry.length > 45)
             {
                myCountry = "Unknown";
             }
-            myCountry = "Lugano";
-            tracker.trackPageview("COUNTRY FROM PHP: " + myCountry);
             nc.close();
             countryConn = false;
             connectApp();
-            tracker.trackPageview("Set Real Country: " + myCountry);
          };
          HayError = function(param1:IOErrorEvent):void
          {
@@ -184,8 +179,6 @@ package
       public var loginFormat2:TextFormat;
       
       public var startCamFormat:TextFormat;
-      
-      public var likesCam1Format:TextFormat;
       
       public var optionsFormat:TextFormat;
       
@@ -376,6 +369,14 @@ package
             this.tracker.trackPageview("Age Missing @ Login");
             return;
          }
+         if(this.login_mc.certi_ch.selected == false)
+         {
+            this.login_mc.server_msg.visible = true;
+            this.showAlerts("\nDebes aceptar los términos de uso.");
+            this.login_mc.server_msg.text = "Debes aceptar los terminos de uso.";
+            this.tracker.trackPageview("Forgot_to_Check_AGREE_the_TERMS");
+            return;
+         }
          this.login_mc.server_msg.text = "Conectando ...";
          this.login_mc.server_msg.visible = true;
          this.login_mc.login_btn.enabled = false;
@@ -403,9 +404,6 @@ package
          this.connectCountry();
          this.storeLocalSO();
          this.Eql9844kmgldiroURrX998q12Vgm = this.myName;
-         this.minutesToGo = this.myName;
-         this.timeWatched = this.myAge;
-         this.minutesToGo2 = this.myGender;
       }
       
       public var reportedPPL;
@@ -456,6 +454,18 @@ package
       public function countdown(param1:TimerEvent) : *
       {
          var _loc2_:Number = this.freeCamTimeN - this.bigCamTimer.currentCount;
+         this.minutesToGo = this.timeFormat(_loc2_);
+         this.timeWatched++;
+         if(this.minutesToGo == ":00")
+         {
+            if(this.myGender == "female" && this.sending_video == true)
+            {
+               this.bigCamTimer.reset();
+               this.bigCamTimer.stop();
+               return;
+            }
+            this.stopBigCam();
+         }
       }
       
       public var soundXForm:SoundTransform;
@@ -517,7 +527,6 @@ package
             this.Application.cam1.video1.clear();
             this.Application.cam1.load_anim.visible = true;
             this.Application.cam1.flag_bt.enabled = true;
-            this.Application.cam1.likeCam.addEventListener(MouseEvent.CLICK,this.likeUser);
          }
          else if(param1.info.code == "NetStream.Play.UnpublishNotify")
          {
@@ -544,7 +553,6 @@ package
          this.Application.cam1.invite_bt.visible = true;
          this.Application.cam1.flag_bt.visible = true;
          this.Application.cam1.underbutt.visible = true;
-         this.Application.cam1.likeCam.visible = true;
       }
       
       public function HandleMouseOut(param1:MouseEvent) : *
@@ -554,7 +562,6 @@ package
          this.Application.cam1.invite_bt.visible = false;
          this.Application.cam1.flag_bt.visible = false;
          this.Application.cam1.underbutt.visible = false;
-         this.Application.cam1.likeCam.visible = false;
       }
       
       public function playStream(param1:String, param2:String, param3:String) : void
@@ -582,12 +589,13 @@ package
             this.Application.cam1.video1m.visible = false;
             this.Application.cam1.video1.attachNetStream(this.play_ns);
          }
-         this.play_ns.bufferTime = 2;
+         this.play_ns.bufferTime = 3;
          this.play_ns.play(param1);
          this.receiving_video = true;
          this.Application.cam1.cam1_txt.text = param1 + ", " + param2;
          this.Application.cam1.cam1_wtxt.text = param1;
          this.tracker.trackEvent("WATCHING CAM","play",param1);
+         this.nc.call("watchingWho",null,param1);
          if(this.timeOut == true)
          {
             this.timeOut88.start();
@@ -710,16 +718,30 @@ package
                   if(_loc3_.roomName == this.roomTitle)
                   {
                      this.uCounterCurrent = _loc3_.roomUsers;
+                     if(this.uCounterCurrent > 999 && this.timeOut == false)
+                     {
+                        if(!((this.sending_video) && this.myGender == "female"))
+                        {
+                           if(this.timeWatched > 90)
+                           {
+                              this.timeOut = true;
+                              if(this.receiving_video)
+                              {
+                                 this.closecam1();
+                              }
+                           }
+                        }
+                     }
                   }
                   if(_loc3_.password != "")
                   {
                      _loc4_ = "key_mc";
                   }
-                  if(_loc3_.roomUsers > 99)
+                  if(_loc3_.roomUsers > 399)
                   {
                      _loc4_ = "hotroom_icon";
                   }
-                  if(_loc3_.roomUsers < 20 && _loc3_.password == "")
+                  if(_loc3_.roomUsers < 199 && _loc3_.password == "")
                   {
                      _loc4_ = "coldroom_icon";
                   }
@@ -735,17 +757,11 @@ package
                   {
                      this.roomsDP.addItem({
                         "label":"Privado (2)",
-                        "data":_loc3_.roomID,
-                        "nombre":_loc3_.roomName,
                         "icon":_loc4_,
-                        "owner":_loc3_.owner,
-                        "topic":_loc3_.roomTopic,
+                        "owner":"admin",
+                        "topic":"",
                         "lock":"94uwjjrs92845hwos083hj5w0eips0w4ji54st46464ss",
-                        "roomUserCount":_loc3_.roomUsers,
-                        "vipRoom":_loc3_.roomVip,
-                        "autoRoom":_loc3_.autoRoom,
-                        "sorted":_loc3_.sortRoom,
-                        "roomObj":_loc3_
+                        "sorted":_loc3_.sortRoom
                      });
                      this.roomsDP.sortOn(["sorted","lock"]);
                   }
@@ -789,31 +805,76 @@ package
                {
                   return;
                }
-               if(_loc3_.UserName == this.Application.cam1.cam1_wtxt.text)
+               if(this.roomTitle == "Lobby" && this.uCounter < 199)
                {
-                  this.Application.cam1.likeCam.label = _loc3_.votesUp.toString();
+                  this.usersDP.addItem({
+                     "label":_loc3_.UserName,
+                     "data":_loc3_.UserName,
+                     "gender":_loc3_.gender,
+                     "streaming":_loc3_.userstatus,
+                     "iswatching":_loc3_.iswatching,
+                     "camtype":_loc3_.camtype,
+                     "pais":_loc3_.pais,
+                     "age":_loc3_.age,
+                     "isMobile":_loc3_.mobileUser,
+                     "vipCam":_loc3_.vipCam
+                  });
+                  this.usersDP.sortOn([this.listStatus,"gender","label"],[Array.DESCENDING,Array.CASEINSENSITIVE]);
                }
-               if(_loc3_.UserName == this.Application.cam2.cam1_wtxt.text)
+               if(this.roomTitle == "Lobby" && this.uCounter >= 199)
                {
-                  this.Application.cam2.likeCam.label = _loc3_.votesUp.toString();
+                  if(_loc3_.userstatus == "idle" || _loc3_.gender == "female" || _loc3_.verifyVip == true)
+                  {
+                     this.usersDP.addItem({
+                        "label":_loc3_.UserName,
+                        "data":_loc3_.UserName,
+                        "gender":_loc3_.gender,
+                        "streaming":_loc3_.userstatus,
+                        "iswatching":_loc3_.iswatching,
+                        "camtype":_loc3_.camtype,
+                        "pais":_loc3_.pais,
+                        "age":_loc3_.age,
+                        "isMobile":_loc3_.mobileUser,
+                        "vipCam":_loc3_.vipCam
+                     });
+                     this.usersDP.sortOn([this.listStatus,"gender","label"],[Array.DESCENDING,Array.CASEINSENSITIVE]);
+                  }
                }
-               if(_loc3_.UserName == this.Application.cam3.cam1_wtxt.text)
+               if(!(this.roomTitle == "Lobby") && this.uCounterCurrent >= 199)
                {
-                  this.Application.cam3.likeCam.label = _loc3_.votesUp.toString();
+                  if(_loc3_.userstatus == "idle" || _loc3_.gender == "female" || _loc3_.verifyVip == true)
+                  {
+                     this.usersDP.addItem({
+                        "label":_loc3_.UserName,
+                        "data":_loc3_.UserName,
+                        "gender":_loc3_.gender,
+                        "streaming":_loc3_.userstatus,
+                        "iswatching":_loc3_.iswatching,
+                        "camtype":_loc3_.camtype,
+                        "pais":_loc3_.pais,
+                        "age":_loc3_.age,
+                        "isMobile":_loc3_.mobileUser,
+                        "vipCam":_loc3_.vipCam
+                     });
+                     this.usersDP.sortOn([this.listStatus,"gender","label"],[Array.DESCENDING,Array.CASEINSENSITIVE]);
+                  }
                }
-               this.usersDP.addItem({
-                  "label":_loc3_.UserName,
-                  "data":_loc3_.UserName,
-                  "gender":_loc3_.gender,
-                  "streaming":_loc3_.userstatus,
-                  "iswatching":_loc3_.iswatching,
-                  "camtype":_loc3_.camtype,
-                  "pais":_loc3_.pais,
-                  "age":_loc3_.age,
-                  "isMobile":_loc3_.mobileUser,
-                  "vipCam":_loc3_.vipCam
-               });
-               this.usersDP.sortOn([this.listStatus,"gender","label"],[Array.DESCENDING,Array.CASEINSENSITIVE]);
+               if(!(this.roomTitle == "Lobby") && this.uCounterCurrent < 199)
+               {
+                  this.usersDP.addItem({
+                     "label":_loc3_.UserName,
+                     "data":_loc3_.UserName,
+                     "gender":_loc3_.gender,
+                     "streaming":_loc3_.userstatus,
+                     "iswatching":_loc3_.iswatching,
+                     "camtype":_loc3_.camtype,
+                     "pais":_loc3_.pais,
+                     "age":_loc3_.age,
+                     "isMobile":_loc3_.mobileUser,
+                     "vipCam":_loc3_.vipCam
+                  });
+                  this.usersDP.sortOn([this.listStatus,"gender","label"],[Array.DESCENDING,Array.CASEINSENSITIVE]);
+               }
                this.users_so.removeEventListener(SyncEvent.SYNC,this.syncEventHandler2);
                this.updateTimer67.start();
             }
@@ -911,16 +972,33 @@ package
          {
             return;
          }
-         this.myName = this.minutesToGo;
-         this.myGender = this.minutesToGo2;
-         this.myAge = this.timeWatched;
-         this.myCountry = this.adminStr;
+         if(_loc4_ >= _loc6_)
+         {
+            this.tracker.trackEvent("ROOM EVENTS","Click","ROOM IS FULL SORRY");
+            _loc9_ = "<font face=\'Tahoma\' size=\'15\' color=\'#FF0000\'><b>Sala " + this.goingToRoom + " limitada a " + _loc6_ + " Usuarios, <font color=\'#0000FF\'><u><a href=\'http://www.chatvideo.es/reg.html\'>Regístrate</a></u></font> para acceso sin limites!</b></font>";
+            this.messages.push({"chatMsg":_loc9_});
+            this.displayMessages();
+            return;
+         }
+         if(_loc5_)
+         {
+            this.tracker.trackEvent("ROOM EVENTS","Click","ROOM IS VIP ONLY");
+            _loc10_ = "<font face=\'Arial\' size=\'12\' color=\'#FF0000\'>Debes ser usuario <font color=\'#0000FF\'><u><a href=\'http://www.chatvideo.es/reg.html\'>Registrado</a></u></font> para ingresar en salas VIP.</font>";
+            this.messages.push({"chatMsg":_loc10_});
+            this.displayMessages();
+            return;
+         }
+         if(_loc4_ > this.maxUsers)
+         {
+            this.tracker.trackEvent("ROOM EVENTS","Click","ROOM IS > 99");
+            _loc11_ = "<br><font face=\'Tahoma\' size=\'15\' color=\'#FF0000\'><b>No puedes ingresar en <font color=\'#0000FF\'>" + this.goingToRoom + "</font> , todos los espacios gratis estan ocupados.  <font color=\'#0000FF\'><u><a href=\'http://www.chatvideo.es/reg.html\'>Regístrate</a></u></font> para acceso sin límites!</font></b><br><br>";
+            this.messages.push({"chatMsg":_loc11_});
+            this.displayMessages();
+            return;
+         }
          if(_loc3_ == "94uwjjrs92845hwos083hj5w0eips0w4ji54st46464ss")
          {
-            this.myName = "     ";
-            this.myGender = "zzzz";
-            this.myCountry = "    ";
-            this.myAge = 18;
+            return;
          }
          if(!(_loc3_ == "") && !_loc8_)
          {
@@ -950,12 +1028,16 @@ package
          var _loc3_:* = "#0000FF";
          if(!(_loc1_ == "") && !(this.curSelectionUser == null))
          {
-            this.Application.mensPv.pv_msg.text = "";
-            this.nc.call("msgFromClient",null,_loc1_,_loc3_,_loc2_,this.myIPencrypted);
-            _loc4_ = "<font face=\'Tahoma\' size=\'15\' color=\'#0000FF\'><b>MP para " + _loc2_ + ": </b></font> <font face=\'Tahoma\' size=\'15\' color=\'#FF0000\'><b>" + _loc1_ + "</b></font>";
-            this.Application.History.htmlText = this.Application.History.htmlText + _loc4_;
+            if(this.isVip == false)
+            {
+               _loc4_ = "<b><font face=\'Tahoma\' size=\'14\' color=\'#FF0000\'>* Solo usuarios <font color=\'#0000FF\'><u><a href=\'http://www.chatvideo.es/reg.html\'>Registrados</a></u></font> pueden enviar mensajes privados.</font></b>";
+               this.messages.push({"chatMsg":_loc4_});
+               this.displayMessages();
+               this.showAlerts("\nRegístrate para enviar\nmensajes privados!");
+               this.tracker.trackPageview("NON-VIP TRYING TO SEND PV");
+               return;
+            }
          }
-         this.Application.History.verticalScrollPosition = this.Application.History.maxVerticalScrollPosition;
       }
       
       public function doSend(param1:MouseEvent) : void
@@ -969,6 +1051,22 @@ package
          var _loc3_:* = undefined;
          if(this.Application.msg.text == "")
          {
+            return;
+         }
+         if(this.sendMsgTimeOut)
+         {
+            _loc2_ = "<font face=\'Tahoma\' size=\'14\' color=\'#FF0000\'><b>* Espera unos segundos para enviar más mensajes, <font color=\'#0000FF\'><u><a href=\'http://www.chatvideo.es/reg.html\'>Regístrate</a></u></font> para enviar mensajes sin límite!</b></font>";
+            this.messages.push({"chatMsg":_loc2_});
+            this.displayMessages();
+            this.Application.msg.text = "";
+            return;
+         }
+         if(this.timeOut)
+         {
+            _loc3_ = "<font face=\'Tahoma\' size=\'14\' color=\'#FF0000\'>Todos los espacios gratis estan ocupados, <font color=\'#0000FF\'><u><a href=\'http://www.chatvideo.es/reg.html\'>Regístrate</a></u></font> para acceso sin límites!</font>";
+            this.tracker.trackPageview("FREE TEXT CHAT ENDED");
+            this.messages.push({"chatMsg":_loc3_});
+            this.displayMessages();
             return;
          }
          var _loc1_:* = this.Application.msg.text;
@@ -985,6 +1083,7 @@ package
       
       public function sendMsgTImerDone(param1:TimerEvent) : void
       {
+         this.sendMsgTimeOut = false;
       }
       
       public var badWords:Array;
@@ -1000,11 +1099,29 @@ package
          this.badWords = param1.target.data.split(",");
       }
       
+      public var yourString:String;
+      
       public function filterWord(param1:String) : Boolean
       {
-         var _loc3_:* = 0;
-         var _loc2_:* = param1;
-         _loc3_ = 0;
+         var _loc6_:* = 0;
+         var _loc2_:RegExp = new RegExp(new RegExp("[^a-zA-Z 0-9]+","g"));
+         this.yourString = param1.replace(_loc2_,"");
+         var _loc3_:* = param1;
+         var param1:String = param1.toLowerCase();
+         var _loc4_:Array = this.yourString.split(" ");
+         var _loc5_:String = _loc4_.join("");
+         _loc6_ = 0;
+         while(_loc6_ < this.badWords.length)
+         {
+            if(_loc5_.search(this.badWords[_loc6_]) != -1)
+            {
+               this.tracker.trackPageview("BadWord Entered, NOT SENT TO SERVER");
+               return true;
+            }
+            _loc6_++;
+         }
+         this.sendMsgTimer.start();
+         this.sendMsgTimeOut = true;
          this.nc.call("chatUser",null,param1,this.myName,this.myColor,this.myIPencrypted,this.Eql9844kmgldiroURrX998q12Vgm);
          this.tracker.trackPageview("MESSAGE SENT BY REGULAR USER: " + this.myName);
          return false;
@@ -1034,15 +1151,14 @@ package
       
       public function selectedUser(param1:Event) : void
       {
+         var _loc7_:* = undefined;
          var _loc8_:* = undefined;
-         var _loc9_:* = undefined;
          this.curSelectionUser = param1.target.selectedItem.label;
          this.theWho = this.curSelectionUser;
          var _loc2_:* = param1.target.selectedItem.streaming;
          var _loc3_:* = param1.target.selectedItem.age;
          var _loc4_:* = param1.target.selectedItem.pais;
          var _loc5_:* = param1.target.selectedItem.vipCam;
-         var _loc6_:* = param1.target.selectedItem.likes;
          this.mobileStream = param1.target.selectedItem.isMobile;
          this.Application.msg.setFocus();
          this.Application.mensPv.toWhoPV.htmlText = "<font color=\'#000000\'>Mensaje privado para:</font> <font color=\'#FF0000\'>" + this.curSelectionUser + "</font>";
@@ -1053,6 +1169,34 @@ package
          {
             this.theWho = undefined;
             this.closePVwin();
+            return;
+         }
+         var _loc6_:* = 0;
+         while(_loc6_ < this.camIgnoringMe.length)
+         {
+            if(this.camIgnoringMe[_loc6_] == this.curSelectionUser)
+            {
+               _loc7_ = "<b><font face=\'Tahoma\' size=\'13\' color=\'#FF0000\'><br>Tu tiempo para ver a <font color=\'#0000FF\'>" + this.curSelectionUser + "</font> ha terminado, <font color=\'#0000FF\'><u><a href=\'http://www.chatvideo.es/reg.html\'>Regístrate</a></u></font> para acceso sin límites!</font></b>";
+               this.messages.push({"chatMsg":_loc7_});
+               this.displayMessages();
+               this.tracker.trackPageview("CAN\'T PLAY STREAM, USER IGNORING ME (LSO)");
+               return;
+            }
+            _loc6_++;
+         }
+         if(_loc5_ == true && _loc2_ == "idle")
+         {
+            _loc8_ = "<font face=\'Tahoma\' size=\'15\' color=\'#FF0000\'><b>Solamente usuarios <font color=\'#0000FF\'><u><a href=\'http://www.chatvideo.es/reg.html\'>Registrados</a></u></font> pueden ver a <font color=\'#0000FF\'>" + this.theWho + ".</b></font>";
+            this.messages.push({"chatMsg":_loc8_});
+            this.displayMessages();
+            this.tracker.trackPageview("SORRY CAN\'T WATCH VIP CAMS!");
+            return;
+         }
+         if(this.curSelectionUser == this.Application.cam1.cam1_wtxt.text)
+         {
+            this.Application.mensPv.visible = true;
+            this.Application.History.y = 344;
+            this.Application.History.height = 237;
             return;
          }
          if(_loc2_ == "idle")
@@ -1144,7 +1288,7 @@ package
          {
             _loc4_ = 18;
          }
-         this.Application.myTooltip.content = "Pais: <b>" + _loc5_ + "</b><br>Edad: <b>" + _loc4_ + "</b><br>IP: <b>" + _loc2_ + "</b><br>VipCam: <b>" + _loc3_ + "</b><br>Mirando: <b>" + _loc6_ + "</b><br>CamType: <b>" + _loc7_ + "</b>";
+         this.Application.myTooltip.content = "Pais: <b>" + _loc5_ + "</b><br>Edad: <b>" + _loc4_ + "</b>";
          if(_loc4_ != undefined)
          {
             this.Application.myTooltip.show();
@@ -1154,13 +1298,23 @@ package
       public function showRoomInfo(param1:ListEvent) : void
       {
          this.Application.myTooltip.hide();
-         var _loc3_:* = this.Application.rooms_lb.getItemAt(param1.index).lock;
-         var _loc5_:Rijndael = new Rijndael();
-         _loc3_ = _loc5_.decrypt(_loc3_,this.rijndael_key,"ECB");
          var _loc2_:* = this.Application.rooms_lb.getItemAt(param1.index).owner;
+         var _loc3_:* = this.Application.rooms_lb.getItemAt(param1.index).icon;
          var _loc4_:* = this.Application.rooms_lb.getItemAt(param1.index).topic;
-         this.Application.myTooltip.content = "Moderador:  <b>" + _loc2_ + "</b><br>Topic: <b>" + _loc4_ + "</b><br>Clave: <b>" + _loc3_ + "</b>";
-         this.Application.myTooltip.show();
+         this.Application.myTooltip.content = "Moderador:  <b>" + _loc2_ + "</b><br>" + _loc4_;
+         if(_loc2_ != "admin")
+         {
+            this.Application.myTooltip.show();
+         }
+         if(_loc3_ == "key_mc" && this.stealthmode == false)
+         {
+            this.Application.myTooltip.hide();
+         }
+         else if(_loc2_ == "admin")
+         {
+            this.Application.myTooltip.hide();
+         }
+         
       }
       
       public function hideUserInfo(param1:ListEvent) : void
@@ -1202,6 +1356,14 @@ package
       
       public function countdown4(param1:TimerEvent) : *
       {
+         var _loc2_:Number = this.sendCamTimeN - this.maleCamTimer.currentCount;
+         this.minutesToGo2 = this.timeFormat(_loc2_);
+         if(this.minutesToGo2 == ":00")
+         {
+            this.stopCam();
+            this.camTimeUp = true;
+            this.tracker.trackPageview("MALE SENDING CAM TIME UP!");
+         }
       }
       
       public function showLevel(param1:Event) : void
@@ -1305,8 +1467,10 @@ package
          if(this.mic)
          {
             this.mic.setSilenceLevel(0);
-            this.mic.codec = SoundCodec.PCMA;
+            this.mic.codec = SoundCodec.SPEEX;
+            this.mic.enableVAD = false;
             this.mic.gain = this.Application.myCamMC.micVol.value;
+            this.mic.encodeQuality = this.micQ;
             this.mic.noiseSuppressionLevel = 0;
             this.mic.setUseEchoSuppression(true);
             stage.addEventListener(Event.ENTER_FRAME,this.showLevel);
@@ -1373,7 +1537,6 @@ package
             this.Application.myCamMC.visible = true;
             this.publish_ns.attachCamera(this.cam);
             this.publish_ns.publish(this.myName,"live");
-            this.publish_ns.bufferTime = 0;
             this.Application.myCamMC.micMeter.visible = false;
             this.Application.activateMic.enabled = true;
             this.Application.activateCam.selected = true;
@@ -1383,14 +1546,11 @@ package
             }
             this.sending_video = true;
             this.startMic();
-            this.tracker.trackPageview("CAM STARTED");
             this.fakeTimer.start();
-            this.nc.call("updateMyVotes",null,this.local_so.data.myVotes);
             this.nc.call("updateCamStatus",null,this.deviceName);
             this.nc.call("updateStatus",null,"idle");
             if(this.cam.muted)
             {
-               this.tracker.trackPageview("CAMERA IS MUTED, STOP BROADCAST");
                this.stopCam();
                Security.showSettings(SecurityPanel.PRIVACY);
             }
@@ -1443,27 +1603,13 @@ package
       
       public function fakeTick(param1:TimerEvent) : *
       {
-         var _loc2_:* = undefined;
          if(this.timeOut == true)
          {
             this.stopCam();
          }
-         if(this.deviceName == "WebcamMax Capture Fast")
-         {
-            _loc2_ = "<font face=\'Arial\' size=\'12\' color=\'#FF0000\'>* Por favor selecciona otra cámara, </font><font color=\'#000000\'>" + this.deviceName + "</font><font color=\'#FF0000\'> no es compatible con ChatVideo</font>";
-            this.messages.push({"chatMsg":_loc2_});
-            this.displayMessages();
-            this.tracker.trackPageview("BANNED DEVICE: " + this.deviceName);
-            this.stopCam();
-            return;
-         }
-         if(this.deviceName == null)
-         {
-            return;
-         }
          if(this.sending_video == true)
          {
-            this.startsWith(this.deviceName,this.bannedDevices,6);
+            this.startsWith(this.deviceName,this.bannedDevices,5);
          }
       }
       
@@ -1509,21 +1655,6 @@ package
       
       public function createNR(param1:MouseEvent) : void
       {
-         var /*UnknownSlot*/:* = undefined;
-         /*UnknownSlot*/ = null;
-         /*UnknownSlot*/ = undefined;
-         /*UnknownSlot*/ = undefined;
-         /*UnknownSlot*/ = param1;
-         /*UnknownSlot*/ = function(param1:MouseEvent):void
-         {
-            var _loc2_:* = this.Application.cam1.cam1_wtxt.text;
-            var _loc3_:* = "<font color=\'#FF0000\' face=\'Tahoma\' size=\'13\'><b>Me gusta " + _loc2_ + "!</b></font>";
-            this.messages.push({"chatMsg":_loc3_});
-            this.displayMessages();
-            this.tracker.trackPageview("LIKE SENT!");
-            this.nc.call("likeYou",null,_loc2_,this.myName);
-            this.Application.cam1.likeCam.removeEventListener(MouseEvent.CLICK,this.likeUser);
-         };
          if(this.newRmc.newRN.text == "")
          {
             this.newRmc.newRN.setFocus();
@@ -1534,51 +1665,6 @@ package
             this.newRmc.newRD.setFocus();
             return;
          }
-         if(this.newRmc.newRN.text == "Privado")
-         {
-            this.newRmc.newRN.setFocus();
-            this.newRmc.newRN.text = "";
-            return;
-         }
-         for(/*UnknownSlot*/ in this.rooms_so.data)
-         {
-            if(this.rooms_so.data[/*UnknownSlot*/] != null)
-            {
-               /*UnknownSlot*/ = this.rooms_so.data[/*UnknownSlot*/];
-               if(/*UnknownSlot*/.owner == this.Eql9844kmgldiroURrX998q12Vgm)
-               {
-                  /*UnknownSlot*/ = "<font face=\'Arial\' size=\'12\' color=\'#FF0000\'><i>Solamente se puede crear 1 sala por usuario.</i></font>";
-                  this.Application.History.htmlText = this.Application.History.htmlText + /*UnknownSlot*/;
-                  this.Application.History.verticalScrollPosition = this.Application.History.maxVerticalScrollPosition;
-                  this.closeWinNR();
-                  return;
-               }
-            }
-         }
-         if(this.newRmc.newRP.text != "")
-         {
-            this.EncryptStringRijndael();
-         }
-         /*UnknownSlot*/ = new Timer(800,1);
-         /*UnknownSlot*/.addEventListener(TimerEvent.TIMER,/*UnknownSlot*/);
-         /*UnknownSlot*/ = new Object();
-         /*UnknownSlot*/.roomUsers = 0;
-         /*UnknownSlot*/.roomLimit = this.newRmc.roomLimite.selectedItem.data;
-         /*UnknownSlot*/.roomName = this.newRmc.newRN.text;
-         /*UnknownSlot*/.roomTopic = this.newRmc.newRD.text;
-         /*UnknownSlot*/.password = this.myRoomPW;
-         /*UnknownSlot*/.roomVip = this.newRmc.newRV.selected;
-         /*UnknownSlot*/.sortRoom = 999999999 + this.generateRandomString(4);
-         /*UnknownSlot*/.roomID = "room_" + this.generateRandomString(20);
-         /*UnknownSlot*/.isPrivate = true;
-         /*UnknownSlot*/.autoRoom = false;
-         /*UnknownSlot*/.owner = this.myName;
-         this.rooms_so.setProperty(/*UnknownSlot*/.roomID,/*UnknownSlot*/);
-         this.roomID = /*UnknownSlot*/.roomID;
-         this.sendRoomKey = /*UnknownSlot*/.password;
-         this.changingRoom = true;
-         /*UnknownSlot*/.start();
-         this.myRoomPW = "";
          this.closeWinNR();
       }
       
@@ -1599,23 +1685,30 @@ package
       
       public function createRoomHandler(param1:MouseEvent) : void
       {
-         this.Application.filters = [this.bf];
-         this.newRmc.visible = true;
-         this.newRmc.newRN.setFocus();
+         var _loc2_:* = "<font face=\'Tahoma\' color=\'#FF0000\' size=\'13\'><b>* Solo usuarios <a href=\'http://www.chatvideo.es/reg.html\'><font color=\'#0000FF\'><u>Registrados</u></font></a> pueden crear y moderar salas</font></b>";
+         this.messages.push({"chatMsg":_loc2_});
+         this.displayMessages();
+         this.showRegAlert("Solamente usuarios registrados pueden crear y moderar salas.");
+         this.tracker.trackPageview("CreateRoom_Failed_NonVIP");
       }
       
       public function enterPWroom(param1:MouseEvent) : void
       {
-         this.myName = "     ";
-         this.myGender = "zzzz";
-         this.myCountry = "    ";
-         this.myAge = 18;
+         if(this.enterRoomMC.claveSala.text == "")
+         {
+            this.enterRoomMC.badpwd.visible = false;
+            this.enterRoomMC.claveSala.setFocus();
+            return;
+         }
          this.decryptStringRijndael();
       }
       
       public function enterPWroomClose(param1:MouseEvent) : void
       {
-         this.decryptStringRijndael();
+         this.enterRoomMC.visible = false;
+         this.enterRoomMC.badpwd.visible = false;
+         this.Application.filters = null;
+         this.Application.msg.setFocus();
       }
       
       public function EncryptStringRijndael() : void
@@ -1628,19 +1721,35 @@ package
       
       public function decryptStringRijndael() : void
       {
-         this.keyRoomStr = this.tempPW;
-         this.enterRoomMC.visible = false;
-         this.enterRoomMC.badpwd.visible = false;
-         this.changingRoom = true;
-         this.Application.people_lb.removeAll();
-         this.Application.people_lb.addItem({"label":"Cargando..."});
-         this.closecam1();
-         this.closePVwin();
-         this.doDisconnect();
-         this.Application.filters = null;
-         this.enterRoomMC.claveSala.text = "";
-         this.enterRoomMC.badpwd.visible = false;
-         this.connectApp();
+         var _loc2_:String = null;
+         var _loc1_:Rijndael = new Rijndael();
+         _loc2_ = _loc1_.encrypt(this.enterRoomMC.claveSala.text,this.rijndael_key,"ECB");
+         if(_loc2_ != this.tempPW)
+         {
+            this.enterRoomMC.claveSala.text = "";
+            this.enterRoomMC.badpwd.visible = true;
+            this.enterRoomMC.claveSala.setFocus();
+            this.tracker.trackPageview("WRONG_ROOM_PASSWORD");
+            return;
+         }
+         if(_loc2_ == this.tempPW)
+         {
+            this.keyRoomStr = _loc2_;
+            this.tracker.trackPageview("CORRECT_ROOM_PASSWORD!");
+            this.enterRoomMC.visible = false;
+            this.enterRoomMC.badpwd.visible = false;
+            this.changingRoom = true;
+            this.Application.people_lb.removeAll();
+            this.Application.people_lb.addItem({"label":"Cargando..."});
+            this.closecam1();
+            this.closePVwin();
+            this.doDisconnect();
+            this.Application.filters = null;
+            this.enterRoomMC.claveSala.text = "";
+            this.enterRoomMC.badpwd.visible = false;
+            this.connectApp();
+            return;
+         }
       }
       
       public var sendInvitation:Boolean;
@@ -1664,28 +1773,19 @@ package
          var _loc1_:* = this.inviteToWho;
          if(_loc1_ == this.myName)
          {
-            this.Application.History.htmlText = this.Application.History.htmlText + "<font face=\'Arial\' color=\'#ff0000\' size=\'12\'>* No te puedes invitar a ti mism@!</font>";
-            this.Application.History.verticalScrollPosition = this.Application.History.maxVerticalScrollPosition;
             return;
          }
-         if(this.sendInvitation == false)
-         {
-            this.Application.History.htmlText = this.Application.History.htmlText + "<font face=\'Tahoma\' color=\'#FF0000\' size=\'12\'>* Espera unos segundos antes de enviar otra invitacion :-)</font>";
-            this.Application.History.verticalScrollPosition = this.Application.History.maxVerticalScrollPosition;
-            return;
-         }
-         if(_loc1_ != undefined)
-         {
-            this.Application.History.htmlText = this.Application.History.htmlText + ("<font face=\'Arial\' color=\'#0000FF\' size=\'12\'>* <font color=\'#FF0000\'>" + _loc1_ + "</font> ha sido invitad@ a una sala privada...</font>");
-            this.Application.History.verticalScrollPosition = this.Application.History.maxVerticalScrollPosition;
-            this.sendInvitation = true;
-         }
+         this.tracker.trackPageview("sendInvitation_Failed_Non_VIP");
+         this.showAlerts("\nRegístrate para enviar\ninvitaciones a salas privadas!");
+         var _loc2_:* = "<font face=\'Tahoma\' color=\'#FF0000\' size=\'14\'><b>* Solo usuarios <a href=\'http://www.chatvideo.es/reg.html\'><font color=\'#0000FF\'><u>Registrados</u></font></a> pueden enviar invitaciones.</font></b>";
+         this.messages.push({"chatMsg":_loc2_});
+         this.displayMessages();
       }
       
       public function inviteAccept(param1:String) : void
       {
          this.tracker.trackPageview("InvitationAccepted");
-         var _loc2_:Timer = new Timer(2000,1);
+         var _loc2_:Timer = new Timer(1000,1);
          _loc2_.addEventListener(TimerEvent.TIMER,this.goPV2);
          var _loc3_:* = new Object();
          _loc3_.roomUsers = 0;
@@ -1707,7 +1807,6 @@ package
       
       public function goPV2(param1:TimerEvent) : void
       {
-         this.Application.History.htmlText = "";
          this.doDisconnect();
          this.connectApp();
       }
@@ -1745,6 +1844,8 @@ package
       
       public function tempo66Expired(param1:TimerEvent) : void
       {
+         this.closecam1();
+         this.Application.bigRegister.visible = true;
       }
       
       public function timeFormat(param1:int) : String
@@ -1923,33 +2024,6 @@ package
          this.alertW.deny_but.visible = false;
       }
       
-      public function likeUser(param1:MouseEvent) : void
-      {
-         var _loc2_:* = this.Application.cam1.cam1_wtxt.text;
-         var _loc3_:* = "<font color=\'#FF0000\' face=\'Tahoma\' size=\'13\'><b>Me gusta " + _loc2_ + "!</b></font>";
-         this.messages.push({"chatMsg":_loc3_});
-         this.displayMessages();
-         this.tracker.trackPageview("LIKE SENT!");
-         this.nc.call("likeYou",null,_loc2_,this.myName);
-         this.Application.cam1.likeCam.removeEventListener(MouseEvent.CLICK,this.likeUser);
-      }
-      
-      public function likeMe(param1:String) : void
-      {
-         var _loc2_:* = 0;
-         while(_loc2_ < this.likeMeArray.length)
-         {
-            if(this.likeMeArray[_loc2_] == param1)
-            {
-               return;
-            }
-            _loc2_++;
-         }
-         this.likeMeArray.push(param1);
-         this.nc.call("setVoteUp",null,this.myIP);
-         this.tracker.trackPageview("LIKE RECEIVED");
-      }
-      
       private var nc:NetConnection;
       
       private var lc:LocalConnection;
@@ -1962,11 +2036,11 @@ package
       
       var tracker:AnalyticsTracker;
       
-      var isVip:Boolean;
+      var isVip:Boolean = false;
       
       var adminStr:String = "";
       
-      var vipStr:String = "4893052JGMMGGM5858!03383@@Z";
+      var vipStr:String = "";
       
       var stealthmode:Boolean = false;
       
@@ -2076,11 +2150,10 @@ package
       {
          if(this.firstLogon)
          {
-            this.adminStr = this.myCountry;
             this.setFontTypeSO();
             this.login_mc.conn_anim.visible = true;
          }
-         this.nc.connect(this.fms_gateway + this.roomID,this.myName,this.myGender,"",this.stealthmode,this.myAge,this.myCountry,this.isVip,this.myIP,this.vipStr,this.keyRoomStr);
+         this.nc.connect(this.fms_gateway + this.roomID,this.Eql9844kmgldiroURrX998q12Vgm,this.myGender,this.adminStr,this.stealthmode,this.myAge,this.myCountry,this.isVip,this.myIP,this.vipStr,this.keyRoomStr);
       }
       
       private function connectCountry() : void
@@ -2098,6 +2171,7 @@ package
                {
                   return;
                }
+               this.timeOut = false;
                this.manageSO();
                if(this.firstLogon == true)
                {
@@ -2137,11 +2211,22 @@ package
                this.tracker.trackPageview("NetConnection.Connect.Failed");
                break;
             case "NetConnection.Connect.Closed":
+               this.receiveHistory("clearText");
+               this.updateTimer67.stop();
+               if(this.rejected)
+               {
+                  return;
+               }
                if(this.changingRoom)
                {
                   break;
                }
-               this.showAlerts("<br><br>Conection closed!<br><br>");
+               this.showAlerts("SE HA PERDIDO CONEXIÓN CON EL SERVIDOR");
+               this.countryConn = true;
+               this.Application.visible = false;
+               this.tracker.trackPageview("NetConnection.Connect.Closed");
+               this.soTimer24.stop();
+               this.isConnected = false;
                return;
             case "NetConnection.Connect.Rejected":
                this.rejected = true;
@@ -2278,7 +2363,7 @@ package
       
       public function setCountry(param1:String) : void
       {
-         this.myIP = "27.17.51.15";
+         this.myIP = param1;
          this.sendRealIP(this.myIP);
          this.tracker.trackPageview("setCountry();");
       }
@@ -2367,6 +2452,16 @@ package
          var _loc2_:String = param1;
          var _loc3_:Array = _loc2_.split(",");
          var _loc4_:* = 0;
+         while(_loc4_ < this.ignoredPPL.length)
+         {
+            if(this.ignoredPPL[_loc4_] == _loc3_[1])
+            {
+               this.ignoTip(_loc3_[0] + " ya esta siendo ignorad@");
+               this.tracker.trackPageview("ALREADY_IGNORING_THAT_PERSON");
+               return;
+            }
+            _loc4_++;
+         }
          var _loc5_:* = "<font color=\'#FF0000\' face=\'Tahoma\' size=\'15\'>* " + _loc3_[0] + " ha sido ignorad@";
          this.messages.push({"chatMsg":_loc5_});
          this.displayMessages();
@@ -2378,14 +2473,68 @@ package
       
       public function ignoredMe(param1:String) : void
       {
+         this.tracker.trackPageview("IGNORE_RECEIVED");
+         if(param1 == this.Application.cam1.cam1_wtxt.text)
+         {
+            this.closecam1();
+         }
+         this.camIgnoringMe.push(param1);
+         this.local_so.data.storedArray = this.camIgnoringMe;
+         this.local_so.flush();
+         var _loc2_:* = "* " + param1 + " te ha ignorado";
+         var _loc3_:* = "<font face=\'Arial\' size=\'12\' color=\'#FF0000\'>" + _loc2_ + "</font>";
+         this.messages.push({"chatMsg":_loc3_});
+         this.displayMessages();
       }
       
       public function floodBan(param1:String) : void
       {
+         this.rejected = true;
+         this.Application.visible = false;
+         this.doDisconnect();
+         this.showAlerts("\n\nHas sido Desconectad@ por hacer flood");
+         this.tracker.trackPageview("I_WAS_KICKED_BY_FLOODING");
       }
       
       public function flagMe(param1:String) : void
       {
+         if(param1 == "127.0.0.1")
+         {
+            if(this.sending_video)
+            {
+               this.local_so.data.isBanned = true;
+               this.local_so.flush();
+               this.stopCam();
+            }
+            this.timeOut = true;
+            this.camTimeUp = true;
+            this.nc.call("reportUser",null,this.myName,"Contenido NO apropiado");
+            return;
+         }
+         var _loc2_:* = 0;
+         while(_loc2_ < this.flagMeArray.length)
+         {
+            if(this.flagMeArray[_loc2_] == param1)
+            {
+               this.tracker.trackPageview("ALREADY_FLAGGED");
+               return;
+            }
+            _loc2_++;
+         }
+         this.flagMeArray.push(param1);
+         if(this.flagMeArray.length > this.flagMeLimit)
+         {
+            if(this.sending_video)
+            {
+               this.stopCam();
+            }
+            this.tracker.trackPageview("TIMEOUT_RECEIVED_TOO_MANY_REPORTS");
+            this.mainTimeOut();
+            this.camTimeUp = true;
+            this.nc.call("reportUser",null,this.myName,"Contenido NO apropiado");
+            return;
+         }
+         this.tracker.trackPageview("***_RED_FLAG_RECEIVED ***");
       }
       
       public function onAdminauth() : void
@@ -2463,7 +2612,7 @@ package
          var param1:String = param1.toLowerCase();
          if(param2 == this.myName)
          {
-            _loc6_ = "<b><font face=\'Tahoma\' size=\'15\' color=\'#000000\'> " + param2 + ": </font></b>" + param1;
+            _loc6_ = "<b><font face=\'Tahoma\' size=\'15\' color=\'#000000\'>" + param2 + ": </font></b>" + param1;
          }
          else
          {
@@ -2488,7 +2637,7 @@ package
          this.xmlLoader.addEventListener(Event.COMPLETE,this.loadXML);
          this.xmlLoader.addEventListener(IOErrorEvent.IO_ERROR,this.loaderMissing);
          this.xmlData = new XML();
-         this.xmlFile = "v20.xml" + "?" + Math.random();
+         this.xmlFile = "v21.xml" + "?" + Math.random();
          this.xmlLoader.load(new URLRequest(this.xmlFile));
          this.url = "http://chatvideo.es/local_as3.php";
          this.bf = new BlurFilter(5,5,5);
@@ -2498,7 +2647,7 @@ package
          this.Application.bigRegister.visible = false;
          this.Application.visible = false;
          this.newRmc.visible = false;
-         this.myColor = "#C0C0C0";
+         this.myColor = "#999999";
          this.fmt = new TextFormat();
          this.fmt.font = "Tahoma";
          this.fmt.color = 14449707;
@@ -2514,8 +2663,6 @@ package
          this.Application.people_lb.rowHeight = 28;
          this.Application.rooms_lb.rowHeight = 25;
          this.Application.option_bt.setStyle("icon",settings_graphic);
-         this.Application.cam1.likeCam.setStyle("icon",like_graphic);
-         this.Application.cam1.likeCam.setStyle("textPadding",0);
          this.Application.cam1.flag_bt.setStyle("icon",warning_graphic);
          this.Application.cam1.invite_bt.setStyle("icon",corazon_graphic);
          this.Application.mensPv.invite_bt.setStyle("icon",corazon_graphic);
@@ -2570,14 +2717,6 @@ package
          this.startCamFormat.color = 0;
          this.startCamFormat.size = "12";
          this.startCamFormat.bold = true;
-         this.likesCam1Format = new TextFormat();
-         this.likesCam1Format.font = "Tahoma";
-         this.likesCam1Format.color = 0;
-         this.likesCam1Format.size = "12";
-         this.likesCam1Format.bold = true;
-         this.Application.cam1.likeCam.setStyle("textFormat",this.likesCam1Format);
-         this.Application.cam2.likeCam.setStyle("textFormat",this.likesCam1Format);
-         this.Application.cam3.likeCam.setStyle("textFormat",this.likesCam1Format);
          this.Application.activateCam.setStyle("textFormat",this.startCamFormat);
          this.Application.activateMic.setStyle("textFormat",this.startCamFormat);
          this.optionsFormat = new TextFormat();
@@ -2603,6 +2742,8 @@ package
          this.login_mc.age_box.dropdown.setRendererStyle("textFormat",this.loginFormat2);
          this.Application.msg.condenseWhite = true;
          this.login_mc.login_name.condenseWhite = true;
+         this.Application.msg.restrict = " a-z,!?ñáéíóúü¿¡:()}{\'0-9";
+         this.login_mc.login_name.restrict = "a-zA-Z1-9";
          this.Application.b_bt.addEventListener(MouseEvent.CLICK,this.doBold);
          this.Application.i_bt.addEventListener(MouseEvent.CLICK,this.doItalic);
          this.Application.u_bt.addEventListener(MouseEvent.CLICK,this.doUnderline);
@@ -2618,7 +2759,6 @@ package
          this.Application.cam2.camname.filters = [this.textFilter];
          this.Application.cam3.camname.filters = [this.textFilter];
          this.Application.myCamMC.myName.filters = [this.textFilter];
-         this.Application.myCamMC.likesText.filters = [this.textFilter];
          this.Application.fontSel.visible = false;
          this.Application.cam1.close_bt.addEventListener(MouseEvent.CLICK,this.cierraCam);
          this.Application.sort_bt.addEventListener(MouseEvent.CLICK,this.sortPeople);
@@ -2686,7 +2826,7 @@ package
          this.Application.rooms_lb.dataProvider = this.roomsDP;
          this.Application.mensPv.sendPV_but.addEventListener(MouseEvent.CLICK,this.doSendPV);
          this.sendMsgTimeOut = false;
-         this.sendMsgTimer = new Timer(5000,1);
+         this.sendMsgTimer = new Timer(3000,1);
          this.sendMsgTimer.addEventListener(TimerEvent.TIMER,this.sendMsgTImerDone);
          this.badWords = new Array();
          this.badWordsLoader = new URLLoader();
@@ -2753,12 +2893,12 @@ package
          this.sendInvitation = true;
          this.Application.cam1.invite_bt.addEventListener(MouseEvent.CLICK,this.runInvite);
          this.Application.mensPv.invite_bt.addEventListener(MouseEvent.CLICK,this.runInvite4);
-         this.timeOut88 = new Timer(2000,1);
+         this.timeOut88 = new Timer(3000,1);
          this.timeOut88.addEventListener(TimerEvent.TIMER,this.tempo66Expired);
          this.imgLoad = false;
          this.imgLoad2 = false;
          this.imgLoad3 = false;
-         this.local_so = SharedObject.getLocal("chatvideoSept10","/");
+         this.local_so = SharedObject.getLocal("Feb042015","/");
          if(this.local_so.data.myName != undefined)
          {
             this.login_mc.login_name.text = this.local_so.data.myName;
@@ -2771,12 +2911,10 @@ package
             this.loginFormat.color = this.local_so.data.myColor;
             this.login_mc.login_name.setStyle("textFormat",this.loginFormat);
             this.camIgnoringMe = this.local_so.data.storedArray;
-            this.Application.myCamMC.likesText.text = this.local_so.data.myVotes;
          }
-         if(this.local_so.data.myVotes == undefined)
+         if(this.local_so.data.isBanned == true)
          {
-            this.local_so.data.myVotes = 0;
-            this.Application.myCamMC.likesText.text = this.local_so.data.myVotes;
+            this.timeOut = true;
          }
          if(this.local_so.data.isBanned == undefined)
          {
@@ -2786,6 +2924,14 @@ package
          {
             this.local_so.data.camOff = false;
          }
+         if(this.local_so.data.camOff == true)
+         {
+            this.camTimeUp = true;
+         }
+         if(this.local_so.data.storedArray == undefined)
+         {
+            this.local_so.data.storedArray = this.camIgnoringMe;
+         }
          this.soTimer24 = new Timer(10000,0);
          this.soTimer24.addEventListener(TimerEvent.TIMER,this.onTick24);
          this.Application.myCamMC.dragMe.addEventListener(MouseEvent.MOUSE_DOWN,this.mouseDownHandler4);
@@ -2793,13 +2939,6 @@ package
          this.alertW.ok_but.addEventListener(MouseEvent.CLICK,this.closeAlerts);
          this.alertW.accept_but.addEventListener(MouseEvent.CLICK,this.inviteOnAccept);
          this.alertW.deny_but.addEventListener(MouseEvent.CLICK,this.inviteOnReject);
-         this.Application.cam1.likeCam.addEventListener(MouseEvent.CLICK,this.likeUser);
       }
-      
-      public var ActualName:String;
-      
-      public var ActualCountry:String;
-      
-      public var ActualAge:Number;
    }
 }
