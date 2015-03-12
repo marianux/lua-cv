@@ -5,9 +5,10 @@ set this_path=%%~dpi
 )
 
 ::set origin_file=vipAug1\vipAug1_mod.swf
+set origin_file=oct15vip\oct15vip.swf
 ::set origin_file=sept11\sept22.swf
 ::set origin_file=sept11\sept11.swf
-set origin_file="sept11\sept11 - copia.swf"
+::set origin_file="sept11\sept11 - copia.swf"
 ::set origin_file="sept22\sept22 - copia.swf"
 
 
